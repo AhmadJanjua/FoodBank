@@ -391,3 +391,167 @@ public class TestUML {
         assertEquals(new ArrayList<Hamper>() {{ add(newHamper); }}, testOrder.getHampers());
     }
 }
+
+
+    @Test
+    public void testClientList() {
+        (["sam","bob","other client"], true)
+    }
+
+    // Test of getTotalGrainCalories method of class ClientList
+    @Test
+    public void testgetTotalGrainCalories() {
+
+        System.out.println("GrainCalories");
+
+        clientList calories = new clientList(200);
+
+        int expResult = 200;
+
+        int result = calories.getTotalGrainCalories();
+        assertEquals("Total Calories from grains: ", expResult, result);
+
+    }
+
+    // Test of setTotalGrainCalories method of class ClientList
+    @Test
+    public void testsetTotalGrainCalories() {
+
+        clientList calories = new clientList(200);
+
+        int currentCalories = calories.getTotalGrainCalories();
+        calories.setTotalGrainCalories(250);
+
+        int expResult = 250;
+
+        System.out.println("GrainCalories");
+
+        int result = calories.getTotalGrainCalories();
+        assertEquals("Total Calories from grains: ", expResult, result);
+
+    }
+
+
+    // Test of getTotalProteinCalories method of class ClientList
+    @Test
+    public void testgetTotalProteinCalories() {
+
+        System.out.println("ProteinCalories");
+
+        clientList calories = new clientList(250);
+
+        int expResult = 250;
+
+        int result = calories.getTotalProteinCalories();
+        assertEquals("Total Calories from protein: ", expResult, result);
+
+    }
+
+    // Test of setTotalProteinCalories method of class ClientList
+    @Test
+    public void testsetTotalProteinCalories() {
+
+        clientList calories = new clientList(250);
+
+        int currentCalories = calories.getTotalProteinCalories();
+        calories.setTotalProteinCalories(300);
+
+        int expResult = 250;
+
+        System.out.println("ProteinCalories");
+
+        int result = calories.getTotalProteinCalories();
+        assertEquals("Total Calories from protein: ", expResult, result);
+
+    }
+
+    // Test of getTotalOtherCalories method of class ClientList
+    @Test
+    public void testgetTotalOtherCalories() {
+
+        System.out.println("OtherCalories");
+
+        clientList calories = new clientList(400);
+
+        int expResult = 400;
+
+        int result = calories.getTotalOtherCalories();
+        assertEquals("Total Calories from other: ", expResult, result);
+
+    }
+
+    // Test of setTotalOtherCalories method of class ClientList
+    @Test
+    public void testsetTotalOtherCalories() {
+
+        clientList calories = new clientList(400);
+
+        int currentCalories = calories.getTotalOtherCalories();
+        calories.setTotalOtherCalories(450);
+
+        int expResult = 250;
+
+        System.out.println("OtherCalories");
+
+        int result = calories.getTotalOtherCalories();
+        assertEquals("Total Calories from other: ", expResult, result);
+
+    }
+
+    // Test of getMobilityStruggled method of class ClientList
+    @Test
+    public void testgetMobilityStruggled() {
+
+        System.out.println("MobilityStruggled");
+
+        clientList mobility = new clientList();
+
+        assertTrue(mobility.MobilityStruggled("True"));
+        assertFalse(mobility.MobilityStruggled("False"));
+
+    }
+
+    // Test of setMobilityStruggled method of class ClientList
+    @Test
+    public void testsetMobilityStruggled() {
+
+        System.out.println("MobilityStruggled");
+
+        clientList mobility = new clientList();
+
+        assertTrue(mobility.MobilityStruggled("True"));
+        assertFalse(mobility.MobilityStruggled("False"));
+
+    }
+
+    // Test of getAddress method of class ClientList
+    @Test
+    public void testgetAddress() {
+
+        clientList address = new clientList("123 smth drive", "456 other lane");
+
+        System.out.println("Address");
+
+        String expResult = "123 smth drive";
+
+        String result = address.getAddress();
+
+        assertEquals("The address is: ", expResult, result);
+
+    }
+
+    // Test of setAddress method of class ClientList
+    @Test
+    public void testsetAddress() {
+
+        clientList address = new clientList("123 smth drive", "456 other lane");
+
+        System.out.println("Address");
+
+        String expResult = "123 smth drive";
+
+        String result = address.getAddress();
+
+        assertEquals("The address is: ", expResult, result);
+
+    }
