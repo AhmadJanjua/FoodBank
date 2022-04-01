@@ -319,21 +319,21 @@ public class TestUML {
         orderoutFile.delete();
     }
     
-    @Test
+    @Test //Test to see if the expected deliveryID matches the true delivery ID, as well as type
     public void testGetDeliveryId() {
         int expectedDeliveryId = 1;
         testDelivery = new Delivery(expectedDeliveryId, 0);
         assertEquals(expectedDeliveryId, testDelivery.getDeliveryId());
     }
 
-    @Test
+    @Test //Test to see if the DeliveryTime expected matches needed DeliveryTime
     public void testGetDeliveryTime() {
         int expectedDeliveryTime = 1;
         testDelivery = new Delivery(0, expectedDeliveryTime);
         assertEquals(expectedDeliveryTime, testDelivery.getDeliveryTime());
     }
 
-    @Test
+    @Test //Tests the setter for the DeliveryID
     public void testSetDeliveryId() {
         int expectedDeliveryId = 1;
         testDelivery = new Delivery(0, 0);
@@ -341,7 +341,7 @@ public class TestUML {
         assertEquals(expectedDeliveryId, testDelivery.getDeliveryId());
     }
 
-    @Test
+    @Test //Tests the setter for the deliverytime
     public void testSetDeliveryTime() {
         int expectedDeliveryTime = 1;
         testDelivery = new Delivery(0, 0);
@@ -349,7 +349,7 @@ public class TestUML {
         assertEquals(expectedDeliveryTime, testDelivery.getDeliveryTime());
     }
 
-    @Test
+    @Test //Tests to see if orderform is properly created, formatted
     public void testCreateOrderForm() {
         testOrderFormat.createOrderForm();
         File file = new File(OUTPUT_FILENAME);
@@ -357,21 +357,21 @@ public class TestUML {
         assertTrue(file.exists());
     }
 
-    @Test
+    @Test //Will test to see if stock is properly updated through the method; test unable to be finished, greater progress required in main code
     public void testUpdateStock() {
         testOrderFormat.updateStock();
 
         // Unable to assert test yet, further information about SQL needed
     }
 
-    @Test
+    @Test //Boolean test to see if the hamper can actually be fulfilled
     public void testCanComplete() {
         Hamper newHamper = new Hamper(new ArrayList<Integer>() {{ add(1); }});
         testOrder.addHamper(newHamper);
         assertTrue(testOrder.canComplete());
     }
 
-    @Test
+    @Test //Test for seeing whether or not the Hamper can be added properly or not
     public void testAddHamper() {
         int expectedHamperSize = 1;
         Hamper newHamper = new Hamper(new ArrayList<Integer>() {{ add(1); }});
@@ -379,12 +379,12 @@ public class TestUML {
         assertEquals(expectedHamperSize, testOrder.getHampers().size());
     }
 
-    @Test
+    @Test //Similar to previous, hard to test without implementation first, here for a reminder
     public void testResetOrder() {
         // Unable to assert test yet
     }
 
-    @Test
+    @Test //Getter Tester for Hamper
     public void testGetHampers() {
         Hamper newHamper = new Hamper(new ArrayList<Integer>() {{ add(1); }});
         testOrder.addHamper(newHamper);
