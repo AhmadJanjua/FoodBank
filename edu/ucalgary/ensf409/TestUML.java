@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * ENSF 409 Final Project Group 7
  * @author Ahmad Janjua, Pedro Ghodsi, Zohaib Ashfaq
- * @version 1.2
+ * @version 1.3
  * @since 1.0
  */
 
@@ -554,4 +554,46 @@ public class TestUML {
 
         assertEquals("The address is: ", expResult, result);
 
+    }
+
+    /**
+     * Test to see if the addClient method successfully adds a Client object
+     */
+    @Test
+    public void testaddClient() {
+        Client one = new Client(23, 0, 80, 10, 10, 120, 2);
+        Client two  = new Client(24,0, 100, 0, 0, 624, 4);
+        Client three = new Client(26, 0, 100, 0, 0, 159, 9);
+
+        ArrayList<Client> ClientList = new ArrayList<Client>();
+        ClientList.add(22);
+        ClientList.add(28);
+
+        ClientList ClientListObject = new ClientList(clientList);
+        ClientListObject.addClient(60);
+
+        clientList.add(55);
+
+        assertEquals("The addClient method does not produce the expected results.",clientList, clientListObject.getClientList());
+    }
+
+    /**
+     * Test to see if the removeClient method successfully removes a Client object
+     */
+    @Test
+    public void testRemoveClient_ClientList() {
+        Client one = new Client(23, 0, 80, 10, 10, 120, 2);
+        Client two  = new Client(24,0, 100, 0, 0, 624, 4);
+        Client three = new Client(26, 0, 100, 0, 0, 159, 9);
+
+        ArrayList<Client> clientList = new ArrayList<Client>();
+        clientList.add(22);
+        clientList.add(28);
+        clientList.add(30);
+
+        ClientList clientListObject = new ClientList(clientList);
+
+        clientListObject.removeClient(30.getITEM_ID());
+        clientList.remove(30);
+        assertEquals("The removeClient method does not produce the expected results.",clientList, clientListObject.getClientList());
     }
