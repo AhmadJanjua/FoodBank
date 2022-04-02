@@ -313,13 +313,23 @@ public class TestUML {
         testHamper = new Hamper();
         testOrder = new Order();
         testOrderFormat = new OrderFormat();
+        
 
         // Delete the orderout file
         File orderoutFile = new File(OUTPUT_FILENAME);
         orderoutFile.delete();
     }
     
-    @Test //Test to see if the expected deliveryID matches the true delivery ID, as well as type
+    @Test (expected = InsufficientStockException.class)
+    public void testOrderThrowsException() {
+    
+        // Not sure how to implement this quite yet, more to come.
+    }
+}
+   
+        
+    
+     @Test //Test to see if the expected deliveryID matches the true delivery ID, as well as type
     public void testGetDeliveryId() {
         int expectedDeliveryId = 1;
         testDelivery = new Delivery(expectedDeliveryId, 0);
