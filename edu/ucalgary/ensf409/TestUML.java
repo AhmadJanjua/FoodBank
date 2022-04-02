@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * ENSF 409 Final Project Group 7
  * @author Ahmad Janjua, Pedro Ghodsi, Zohaib Ashfaq
- * @version 1.5
+ * @version 1.7
  * @since 1.0
  */
 
@@ -607,3 +607,301 @@ public class TestUML {
         clientList.remove(30);
         assertEquals("The removeClient method does not produce the expected results.",clientList, clientListObject.getClientList());
     }
+
+//Tests for class Client
+
+/**
+ * testing the constructor with wrong values
+ * to test that it throws an IllegalArgumentException
+ */
+ 
+@Test
+public void testClient()
+{
+	boolean testException = false;	// varibale to Indicate if the constructor throws an IllegalArgumentException
+	try
+	{
+			new Client(6,100,200,500,150,10);
+	}catch(IllegalArgumentException e)
+	{
+		testException = true;
+	}
+	assertTrue("Client class does not throw proper IllegalArgumentException!",testException);
+}
+
+// getters
+
+/**
+ * testing getGrainPercent() method
+ */
+ 
+ @Test
+ public void testGetGrainPercent()
+ {
+	// making an object of class Client with correct arguments
+	var client = new Client(1,16,28,26,30,2500);
+	assertEquals("The getter method for WholeGrains(%) failed!",16,client.getGrainPercent());	 
+ }
+ 
+ /**
+ * testing getProteinPercent() method
+ */
+ 
+ @Test
+ public void testGetProteinPercent()
+ {
+	// making an object of class Client with correct arguments
+	var client = new Client(1,16,28,26,30,2500);
+	assertEquals("The getter method for Protein(%) failed!",26,client.getProteinPercent());	 
+ }
+ 
+ /**
+ * testing getFVPercent() method
+ */
+ 
+ @Test
+ public void testGetFVPercent()
+ {
+	// making an object of class Client with correct arguments
+	var client = new Client(1,16,28,26,30,2500);
+	assertEquals("the getter method for FruitsVeggies(%) failed!",28,client.getFVPercent());	 
+ }
+ 
+ /**
+ * testing getOtherPercent() method
+ */
+ 
+ @Test
+ public void testGetOtherPercent()
+ {
+	// making an object of class Client with correct arguments
+	var client = new Client(1,16,28,26,30,2500);
+	assertEquals("the getter method for Other(%) failed!",30,client.getOtherPercent());	 
+ }
+ 
+ /**
+ * testing getCalories() method
+ */
+ 
+ @Test
+ public void testGetCalories()
+ {
+	// making an object of class Client with correct arguments
+	var client = new Client(1,16,28,26,30,2500);
+	assertEquals("the getter method for Calories failed!",2500,client.getCalories());	 
+ }
+ 
+ // setters
+ 
+ /**
+ * testing setGrainPercent(int grainPercent) method
+ */
+ 
+ @Test
+ public void testSetGrainPercent()
+ {
+	// making an object of class Client with correct arguments
+	var client = new Client(1,16,28,26,30,2500);
+	client.setGrainPercent(15);
+	assertEquals("the setter method for WholeGrains(%) failed!",15,client.getGrainPercent());	 
+ }
+ 
+ /**
+ * testing setProteinPercent(int proteinPercent) method
+ */
+ 
+ @Test
+ public void testSetProteinPercent()
+ {
+	// making an object of class Client with correct arguments
+	var client = new Client(1,16,28,26,30,2500);
+	client.setProteinPercent(15);
+	assertEquals("The setter method for Protein(%) failed!",15,client.getProteinPercent());	 
+ }
+ 
+ /**
+ * testing setFVPercent(int fvPercent) method
+ */
+ 
+ @Test
+ public void testSetFVPercent()
+ {
+	// making an object of class Client with correct arguments
+	var client = new Client(1,16,28,26,30,2500);
+	client.setFVPercent(15);
+	assertEquals("the setter method for FruitsVeggies(%) failed!",15,client.getFVPercent());	 
+ }
+ 
+ /**
+ * testing setOtherPercent(int other) method
+ */
+ 
+ @Test
+ public void testSetOtherPercent()
+ {
+	// making an object of class Client with correct arguments
+	var client = new Client(1,16,28,26,30,2500);
+	client.setOtherPercent(15);
+	assertEquals("the setter method for Other(%) failed!",15,client.getOtherPercent());	 
+ }
+ 
+ /**
+ * testing setCalories(int calories) method
+ */
+ 
+ @Test
+ public void testSetCalories()
+ {
+	// making an object of class Client with correct arguments
+	var client = new Client(1,16,28,26,30,2500);
+	client.setCalories(1500)
+	assertEquals("the setter method for Calories failed!",1500,client.getCalories());	 
+ }
+ 
+ //Tests for class Food
+
+/**
+ * testing the constructor with wrong values
+ * to test that it throws an IllegalArgumentException
+ */
+ 
+@Test
+public void testFood()
+{
+	boolean testException = false;	// varibale to Indicate if the constructor throws an IllegalArgumentException
+	try
+	{
+			new Food(6,"Abc",200,500,1500,100,600,10);
+	}catch(IllegalArgumentException e)
+	{
+		testException = true;
+	}
+	assertTrue("Food class does not throw proper IllegalArgumentException!",testException);
+}
+
+// getters
+
+/**
+ * testing getITEM_ID() method
+ */
+ 
+ @Test
+ public void testGetITEM_ID()
+ {
+	// making an object of class Food with correct arguments
+	var food = new Food(0023,"Tomato Sauce,jar",0,80,10,10,120,40);
+	assertEquals("The getter method for ITEM_ID failed!",0023,food.getITEM_ID());	 
+ }
+ 
+ /**
+ * testing getNAME() method
+ */
+ 
+ @Test
+ public void testGetNAME()
+ {
+	// making an object of class Food with correct arguments
+	var food = new Food(0023,"Tomato Sauce,jar",0,80,10,10,120,40);
+	assertEquals("The getter method for NAME of food failed!","Tomato Sauce",food.getNAME());	 
+ }
+ 
+ /**
+ * testing getGRAIN_CONTENT() method
+ */
+ 
+ @Test
+ public void testGetGRAIN_CONTENT()
+ {
+	// making an object of class Food with correct arguments
+	var food = new Food(0023,"Tomato Sauce,jar",0,80,10,10,120,40);
+	assertEquals("The getter method for GRAIN_CONTENT of food failed!",0,food.getGRAIN_CONTENT());	 
+ }
+ 
+  /**
+ * testing getFV_CONTENT() method
+ */
+ 
+ @Test
+ public void testGetFV_CONTENT()
+ {
+	// making an object of class Food with correct arguments
+	var food = new Food(0023,"Tomato Sauce,jar",0,80,10,10,120,40);
+	assertEquals("The getter method for FV_CONTENT of food failed!",80,food.getFV_CONTENT());	 
+ }
+ 
+ /**
+  * testing getPROTEIN_CONTENT() method
+  */
+ 
+ @Test
+ public void testGetPROTEIN_CONTENT()
+ {
+	// making an object of class Food with correct arguments
+	var food = new Food(0023,"Tomato Sauce,jar",0,80,10,10,120,40);
+	assertEquals("The getter method for PROTEIN_CONTENT of food failed!",10,food.getPROTEIN_CONTENT());	 
+ }
+ 
+ /**
+  * testing getOTHER() method
+  */
+ 
+ @Test
+ public void testGetOTHER()
+ {
+	// making an object of class Food with correct arguments
+	var food = new Food(0023,"Tomato Sauce,jar",0,80,10,10,120,40);
+	assertEquals("The getter method for OTHER of food failed!",10,food.getOTHER());	 
+ }
+ 
+ /**
+  * testing getCALORIES() method
+  */
+ 
+ @Test
+ public void testGetCALORIES()
+ {
+	// making an object of class Food with correct arguments
+	var food = new Food(0023,"Tomato Sauce,jar",0,80,10,10,120,40);
+	assertEquals("The getter method for CALORIES of food failed!",120,food.getCALORIES());	 
+ }
+ 
+ /**
+  * testing getStock() method
+  */
+ 
+ @Test
+ public void testGetStock()
+ {
+	// making an object of class Food with correct arguments
+	var food = new Food(0023,"Tomato Sauce,jar",0,80,10,10,120,40);
+	assertEquals("The getter method for Stock of food failed!",40,food.getStock());	 
+ }
+ 
+ 
+ // setters
+ 
+ /**
+ * testing setStock(int stock) method
+ */
+ 
+ @Test
+ public void testSetStock()
+ {
+	// making an object of class Food with correct arguments
+	var food = new Food(0023,"Tomato Sauce,jar",0,80,10,10,120,40);
+	food.setStock(15);
+	assertEquals("the setter method for Stock failed!",15,food.getStock());	 
+ }
+ 
+ //other methods
+ /**
+ * testing toString() method
+ */
+ 
+ @Test
+ public void testToString()
+ {
+	// making an object of class Food with correct arguments
+	var food = new Food(0023,"Tomato Sauce,jar",0,80,10,10,120,40);
+	assertEquals("toString method for Food failed!",15,food.getStock());	 
+ }
