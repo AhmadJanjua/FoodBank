@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * ENSF 409 Final Project Group 7
- * @author Ahmad Janjua, Pedro Ghodsi, Zohaib Ashfaq
+ * @author Ahmad Janjua, Pedro Ghodsi, Zohaib Ashfaq, Farica Mago
  * @version 1.7
  * @since 1.0
  */
