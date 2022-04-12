@@ -419,7 +419,7 @@ public class TestUML {
         int expResult = 200;
 
         int result = calories.getTotalGrainCalories();
-        assertEquals("Total Calories from grains: ", expResult, result);
+        assertEquals("Error in testgetTotalGrainCalories: ", expResult, result);
 
     }
 
@@ -437,7 +437,7 @@ public class TestUML {
         System.out.println("GrainCalories");
 
         int result = calories.getTotalGrainCalories();
-        assertEquals("Total Calories from grains: ", expResult, result);
+        assertEquals("Error in testsetTotalGrainCalories: ", expResult, result);
 
     }
 
@@ -453,7 +453,7 @@ public class TestUML {
         int expResult = 250;
 
         int result = calories.getTotalProteinCalories();
-        assertEquals("Total Calories from protein: ", expResult, result);
+        assertEquals("Error in testgetTotalProteinCalories: ", expResult, result);
 
     }
 
@@ -471,7 +471,7 @@ public class TestUML {
         System.out.println("ProteinCalories");
 
         int result = calories.getTotalProteinCalories();
-        assertEquals("Total Calories from protein: ", expResult, result);
+        assertEquals("Error in testsetTotalProteinCalories: ", expResult, result);
 
     }
 
@@ -486,7 +486,7 @@ public class TestUML {
         int expResult = 400;
 
         int result = calories.getTotalOtherCalories();
-        assertEquals("Total Calories from other: ", expResult, result);
+        assertEquals("Error in testgetTotalOtherCalories: ", expResult, result);
 
     }
 
@@ -504,7 +504,7 @@ public class TestUML {
         System.out.println("OtherCalories");
 
         int result = calories.getTotalOtherCalories();
-        assertEquals("Total Calories from other: ", expResult, result);
+        assertEquals("Error in testsetTotalOtherCalories: ", expResult, result);
 
     }
 
@@ -546,7 +546,7 @@ public class TestUML {
 
         String result = address.getAddress();
 
-        assertEquals("The address is: ", expResult, result);
+        assertEquals("Error in testgetAddress: ", expResult, result);
 
     }
 
@@ -562,7 +562,7 @@ public class TestUML {
 
         String result = address.getAddress();
 
-        assertEquals("The address is: ", expResult, result);
+        assertEquals("Error in testsetAddress: ", expResult, result);
 
     }
 
