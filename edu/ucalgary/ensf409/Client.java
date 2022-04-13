@@ -1,64 +1,83 @@
 package edu.ucalgary.ensf409;
 
-import org.junit.experimental.categories.Categories;
-
-/**
- * Client
- */
-public class Client {
-    private static int counter = 1;
-    private final int CLIENT_ID;
+public class Client
+{
+    private int clientID;
     private final String CLIENT_TYPE;
     private int percentGrain;
     private int percentFV;
     private int percentProtein;
     private int percentOther;
     private int calories;
-    public Client(String CLIENT_TYPE, int percentGrain, int percentFV, int percentProtein, int percentOther, int calories) {
-        this.CLIENT_ID = counter++;
-        this.CLIENT_TYPE = CLIENT_TYPE;
-        this.percentGrain = percentGrain;
-        this.percentFV = percentFV;
-        this.percentProtein = percentProtein;
-        this.percentOther = percentOther;
+
+    // constructor
+
+    public Client(String ID,int grain, int fruitFV, int protien,int others,int calories)
+    {
+        this.CLIENT_TYPE = ID;
+        this.percentGrain = grain;
+        this.percentFV = fruitFV;
+        this.percentProtein = protien;
+        this.percentOther = others;
         this.calories = calories;
     }
-    
-    public int getCLIENT_ID() {
-        return CLIENT_ID;
+
+    // getters
+
+    public int getGrainPercent()
+    {
+        return this.percentGrain;
     }
-    public String getCLIENT_TYPE() {
-        return CLIENT_TYPE;
+
+    public int getProteinPercent()
+    {
+        return this.percentProtein;
     }
-    public int getPercentGrain() {
-        return percentGrain;
+
+    public int getFVPercent()
+    {
+        return this.percentFV;
     }
-    public void setPercentGrain(int percentGrain) {
-        this.percentGrain = percentGrain;
+
+    public int getOtherPercent()
+    {
+        return this.percentOther;
     }
-    public int getPercentFV() {
-        return percentFV;
+
+    public int getCalories()
+    {
+        return this.calories;
     }
-    public void setPercentFV(int percentFV) {
-        this.percentFV = percentFV;
+
+    public int getclientID()
+    {
+        return this.clientID;
     }
-    public int getPercentProtein() {
-        return percentProtein;
+
+    // setters
+
+    public void setGrainPercent(int grainPercent)
+    {
+        this.percentGrain = grainPercent;
     }
-    public void setPercentProtein(int percentProtein) {
-        this.percentProtein = percentProtein;
+
+    public void setProteinPercent(int protienPercent)
+    {
+        this.percentProtein = protienPercent;
     }
-    public int getPercentOther() {
-        return percentOther;
+
+    public void setFVPercent(int fvPercent)
+    {
+        this.percentFV = fvPercent;
     }
-    public void setPercentOther(int percentOther) {
-        this.percentOther = percentOther;
+
+    public void setOtherPercent(int other)
+    {
+        this.percentOther = other;
     }
-    public int getCalories() {
-        return calories;
-    }
-    public void setCalories(int calories) {
+
+    public void setCalories(int calories)
+    {
         this.calories = calories;
     }
-    
 }
