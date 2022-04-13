@@ -1,3 +1,5 @@
+package edu.ucalgary.ensf409;
+
 public class Delivery {
 
     private int deliveryId;
