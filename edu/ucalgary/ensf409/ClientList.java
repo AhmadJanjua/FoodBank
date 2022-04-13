@@ -10,9 +10,16 @@ public class ClientList {
     private int totalOtherCalories;
     private boolean isMobilityStruggled;
     private int address;
-    public ClientList(ArrayList<Client> clients) {
+    
+    
+    public ClientList(ArrayList<Client> clients, boolean isMobilityStruggled) {
         this.clients = clients;
     }
+    
+    public ClientList(Client client, boolean isMobilityStruggled) {
+        this.clients = new ArrayList<Client> clients;
+    }
+    
     public ArrayList<Client> getClients() {
         return clients;
     }
@@ -55,6 +62,24 @@ public class ClientList {
     public void setAddress(int address) {
         this.address = address;
     }
+    
+    public void removeClient(int clientID) {
+        
+        for (int i = 0; i < clients.length; i++) {
+            int currID = clients.get(i).getclientID;
+            
+            if (currID = clientID) {
+                clients.remove(i);
+                return;
+            }
+    
+        }
+    }
+    
+    public void addClient(Client client) {
+        clients.add client;
+    }
+    
     
     
 }
