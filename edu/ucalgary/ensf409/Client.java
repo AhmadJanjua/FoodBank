@@ -2,6 +2,7 @@ package edu.ucalgary.ensf409;
 
 public class Client
 {
+    private static int counter = 1;
     private int clientID;
     private final String CLIENT_TYPE;
     private int percentGrain;
@@ -14,6 +15,7 @@ public class Client
 
     public Client(String ID,int grain, int fruitFV, int protien,int others,int calories)
     {
+        this.clientID = counter++;
         this.CLIENT_TYPE = ID;
         this.percentGrain = grain;
         this.percentFV = fruitFV;
@@ -23,6 +25,9 @@ public class Client
     }
 
     // getters
+    public String getClientType(){
+        return this.CLIENT_TYPE;
+    }
 
     public int getGrainPercent()
     {

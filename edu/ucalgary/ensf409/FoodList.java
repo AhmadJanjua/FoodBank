@@ -21,10 +21,7 @@ public class FoodList {
     private final String PASSWORD = "ensf";    
     private Connection dbConnect;
     private ResultSet results;
-
-
     private ArrayList<Food> currentFood = new ArrayList<>();
-
     public FoodList(){
         try {
             dbConnect = DriverManager.getConnection(this.DBURL, this.USERNAME, this.PASSWORD);
@@ -52,22 +49,23 @@ public class FoodList {
             ex.printStackTrace();
         }
     }
-
-
     public void addFood(Food food){
-        
+        currentFood.add(food);
     }
-
-    public void removeFood(int foodID){}
-
+    public void removeFood(String foodID){
+        for(int i= 0; i<currentFood.size(); i++){
+            if(currentFood.get(i).getNAME().equals(foodID)){
+                currentFood.remove(i);
+                return;
+            }
+        }
+    }
     public ArrayList<Food> getFoodList() {
         return currentFood;
     }
-
     public void setFoodList(ArrayList<Food> foodList) throws IllegalArgumentException {
         this.currentFood = foodList;
     }
-
     public void close() {
         try {
             results.close();    
