@@ -19,6 +19,7 @@ public class Order {
     
     public static void main(String[] args) throws InsufficientFoodException, InsufficientStockException {
         ClientList cList = new ClientList(1, 1, 1, 1, true); // to be fixed with GUI later
+        //System.out.println(cList.getClientString());   ADDED to Check if it prints out the clientlist properly
         FoodList fList = new FoodList();
         String nameInput = "Name:" + ""; // to be fixed with gui later
         String clients = cList.getClients().toString();

@@ -19,7 +19,7 @@ public class ClientList {
     private final String PASSWORD = "ensf";    
     private Connection dbConnect;
     private ResultSet results;
-    private String nMale;
+    private int numMale, numFemale, under, over;
 
     private ArrayList<Client> clients = new ArrayList<>();
     private double totalCalories= 0;
@@ -32,6 +32,11 @@ public class ClientList {
     
 
     public ClientList(int numMale, int numFemale, int under, int over, boolean isMobilityStruggled) {
+        this.numMale = numMale;
+        this.numFemale = numFemale;
+        this.over = over;
+        this.under = under;
+        
         this.isMobilityStruggled = isMobilityStruggled;
         try {
             dbConnect = DriverManager.getConnection(this.DBURL, this.USERNAME, this.PASSWORD);
@@ -83,8 +88,6 @@ public class ClientList {
         }
         this.setNutrientNeeds();
     }
-
-    
     
     public ArrayList<Client> getClients() {
         return clients;
@@ -107,6 +110,27 @@ public class ClientList {
     public double getTotalGrainCalories() {
         return totalGrainCalories;
     }
+    //Returns a String of clients
+    public String getClientString() {
+        String clientString = "";
+        if(numMale != 0){
+            clientString += numMale + " Adult Male, ";
+        }
+        if(numFemale != 0){
+            clientString += numFemale + " Adult Female, ";
+        }
+        if(under != 0){
+            clientString += under + " Child under 8, ";
+        }
+        if(over != 0){
+            clientString += over + " Child over 8, ";
+        }
+        return clientString.substring(0, clientString.length()-2);
+
+    }
+
+
+
     public void setTotalGrainCalories(int totalGrainCalories) {
         this.totalGrainCalories = totalGrainCalories;
     }
