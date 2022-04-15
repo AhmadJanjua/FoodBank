@@ -22,7 +22,7 @@ public class Hamper {
     private ClientList nutrientNeeds;
     private ArrayList<String> inHamper;
 
-    public Hamper(ClientList nutrientNeeds, FoodList foods) throws Exception {
+    public Hamper(ClientList nutrientNeeds, FoodList foods) throws InsufficientFoodException {
         this.nutrientNeeds = nutrientNeeds;
         this.nutrientNeeds.setNutrientNeeds();
         this.foodDatabase = foods.getFoodList();
@@ -56,7 +56,7 @@ public class Hamper {
         }
         return hamperString;
     }
-    public void createHamper() throws Exception{
+    public void createHamper() throws InsufficientFoodException{
         int counter = 10;
         double tmp; 
         ArrayList<Double> list = new ArrayList<>();
@@ -92,7 +92,7 @@ public class Hamper {
             }
 
             if(counter-- == 0){
-                throw new Exception("NOT enout items");///NOTENOUGHFOOD
+                throw new InsufficientFoodException("NOT enout items");///NOTENOUGHFOOD
             }
         }
         this.minimize();

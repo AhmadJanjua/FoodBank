@@ -76,7 +76,7 @@ public class FoodList {
     public HashMap<Integer,Food> getFoodList() {
         return currentFood;
     }
-    public void removeFromDatabase(ArrayList<Integer> arrayList) throws Exception{
+    public void removeFromDatabase(ArrayList<Integer> arrayList) throws InsufficientStockException{
         for(int id : arrayList){
             try {
                 String query1 = "DELETE FROM available_Food WHERE itemID = ?";
@@ -87,7 +87,7 @@ public class FoodList {
                 //myStmt2.executeUpdate();
                 ResultSet rs = myStmt2.executeQuery();
                 if(!rs.isBeforeFirst()){
-                    throw new Exception("Items out of Stock!");
+                    throw new InsufficientStockException("Items out of Stock!");
                 }
                 myStmt1.setInt(1, id);
                 myStmt1.executeUpdate();
