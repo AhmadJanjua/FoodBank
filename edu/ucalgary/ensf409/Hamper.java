@@ -1,5 +1,9 @@
 package edu.ucalgary.ensf409;
-
+/**
+@author Ahmad Janjua
+@version 1.1
+@since 1.0
+*/
 import java.util.*;
 
 public class Hamper {
@@ -8,7 +12,7 @@ public class Hamper {
         FoodList fList = new FoodList();
         fList.fillFromDatabase();
         Hamper hamper = new Hamper(cList, fList);
-        System.out.println(hamper.createOrderFormat());
+        //System.out.println(hamper.createOrderFormat());
         fList.removeFromDatabase(hamper.getItemList());
         //fList.removeFromDatabase(hamper.getItemList());
     }
@@ -32,8 +36,6 @@ public class Hamper {
         this.totalProtein = nutrientNeeds.getTotalProteinCalories()*7;
         this.totalGrain = nutrientNeeds.getTotalGrainCalories()*7;
         createHamper();
-        //getInfo();
-
     }   
     public void addToHamper(Food food){
         this.inHamper.add(food.getITEM_ID()+" "+ food.getNAME());
@@ -220,31 +222,35 @@ public class Hamper {
         fv -= entry.getValue().getFV_CONTENT();
         grain -= entry.getValue().getGRAIN_CONTENT();
     }
- 
-    public void getInfo(){
-        List<Integer> list = new ArrayList<Integer>(hamperSet);
-        protein= 0;
-        calories = 0;
-        fv = 0;
-        other = 0;
-        grain = 0;
-        for(int i = 0; i < list.size(); i++){
-            protein+= foodDatabase.get(list.get(i)).getPROTEIN_CONTENT();
-            calories += foodDatabase.get(list.get(i)).getCALORIES();
-            fv += foodDatabase.get(list.get(i)).getFV_CONTENT();
-            other += foodDatabase.get(list.get(i)).getOTHER_CONTENT();
-            grain += foodDatabase.get(list.get(i)).getGRAIN_CONTENT();
-        }
 
-        // System.out.println("\nNeeded Cals " + totalCalories + " Calculated Cals " + calories);
-        // System.out.println("Needed Protein " + totalProtein + " Calculated Protein " + protein);
-        // System.out.println("Needed FV " + totalFV + " Calculated FV " + fv);
-        // System.out.println("Needed Other " + totalOther + " Calculated Other " + other);
-        // System.out.println("Needed WG " + totalGrain + " Calculated WG " + grain);
-        System.out.println("Cals " + (calories - totalCalories));
-        System.out.println("Protein " + (protein- totalProtein));
-        System.out.println("FV " + (fv - totalFV));
-        System.out.println("Other " + (other - totalOther));
-        System.out.println("WG " + (grain - totalGrain));
+    public double getCalories() {
+        return calories;
+    }
+    public double getProtein() {
+        return protein;
+    }
+    public double getOther() {
+        return other;
+    }
+    public double getGrain() {
+        return grain;
+    }
+    public double getFv() {
+        return fv;
+    }
+    public double getTotalCalories() {
+        return totalCalories;
+    }
+    public double getTotalProtein() {
+        return totalProtein;
+    }
+    public double getTotalOther() {
+        return totalOther;
+    }
+    public double getTotalFV() {
+        return totalFV;
+    }
+    public double getTotalGrain() {
+        return totalGrain;
     }
 }

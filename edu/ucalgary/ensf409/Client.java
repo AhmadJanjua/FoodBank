@@ -1,4 +1,14 @@
 package edu.ucalgary.ensf409;
+/**
+@author Ahmad Janjua, Farica Mago
+@version 1.2
+@since 1.0
+*/
+
+/*
+Client class takes in info about the needs of specific clients and generate
+info that can be used to determine their needs.
+*/
 
 public class Client
 {
@@ -11,8 +21,9 @@ public class Client
     private int percentOther;
     private int calories;
 
-    // constructor
-
+    /**
+    @param ID is the user name...
+    */
     public Client(String ID,int grain, int fruitFV, int protien,int others,int calories)
     {
         this.clientID = counter++;
