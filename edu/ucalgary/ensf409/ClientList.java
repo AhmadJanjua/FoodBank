@@ -1,7 +1,16 @@
 package edu.ucalgary.ensf409;
-
+/**
+@author Ahmad Janjua, Zohaib
+@version 1.3
+@since 1.0
+*/
 import java.util.*;
 import java.sql.*;
+
+/*
+ClientList Class takes in a collection of clients and gets their requirement from the database
+from the database it then gets gathers info related to their daily needs.
+ */
 
 public class ClientList {
 

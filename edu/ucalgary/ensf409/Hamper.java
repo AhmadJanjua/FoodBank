@@ -1,19 +1,31 @@
 package edu.ucalgary.ensf409;
-
+/**
+@author Ahmad Janjua
+@version 1.2
+@since 1.0
+*/
 import java.util.*;
-
+/*
+The hamper class takes the needs of clients and the available food in the database
+to create the best hamper for them.
+*/
 public class Hamper {
-    
-    
     private double totalCalories, totalProtein, totalOther, totalFV, totalGrain;
     private double minCalories, minProtein, minGrain, minOther, minFV;
     private double calories, protein, other, grain, fv;
     private double diff;
     private HashMap<Integer,Food> foodDatabase = new HashMap<Integer,Food>();
-    private Set<Integer> hamperSet = new TreeSet<Integer>(), extraItems = new HashSet<Integer>(), addSet = new HashSet<Integer>();
+    private Set<Integer> hamperSet = new TreeSet<Integer>();
     private ClientList nutrientNeeds;
     private ArrayList<String> inHamper;
 
+    /**
+     * The Constructor
+     * @param nutrientNeeds A clientlist of client needs;
+     * @param foods a FoodList of all available food items.
+     * @throws InsufficientFoodException If the foodlist does not contain enough items to generate
+     * food that meets the needs of the clients an exception is thrown.
+     */
     public Hamper(ClientList nutrientNeeds, FoodList foods) throws InsufficientFoodException {
         this.nutrientNeeds = nutrientNeeds;
         this.nutrientNeeds.setNutrientNeeds();
@@ -24,21 +36,44 @@ public class Hamper {
         this.totalProtein = nutrientNeeds.getTotalProteinCalories()*7;
         this.totalGrain = nutrientNeeds.getTotalGrainCalories()*7;
         createHamper();
-        //getInfo();
-
-    }   
+    }
+    /**
+     * Add a food object to the hamper
+     * @param food A valid Food object
+     */
     public void addToHamper(Food food){
         this.inHamper.add(food.getITEM_ID()+" "+ food.getNAME());
     }
+    /**
+     * Getter
+     * @return Returns an arraylist of strings that are in the hamper
+     */
     public ArrayList<String> getInHamper() {
+        inHamper = new ArrayList<>();
+        for(int i : hamperSet){
+            inHamper.add(foodDatabase.get(i).getNAME());
+        }
         return inHamper;
     }
+    /**
+     * Getter
+     * @return gets a ClientList.
+     */
     public ClientList getNutrientNeeds() {
         return nutrientNeeds;
     }
-    public void setNutrientNeeds(ClientList nutrientNeeds) {
+    /**
+     * Creates a hamper with the new requirements.
+     * @param nutrientNeeds Requires a clientList obeject with the clients needs.
+     */
+    public void setNutrientNeeds(ClientList nutrientNeeds) throws InsufficientFoodException{
         this.nutrientNeeds = nutrientNeeds;
+        createHamper();
     }
+    /**
+     * Creates the format needed for the order form
+     * @return a single string of all the needed items in the hamper.
+     */
     public String createOrderFormat() {
         ArrayList<Integer> al = new ArrayList<>(hamperSet);
         String hamperString = "";
@@ -48,6 +83,10 @@ public class Hamper {
         }
         return hamperString;
     }
+    /**
+     * Runs through the algorithm to generate the least wasteful hamper.
+     * @throws InsufficientFoodException
+     */
     public void createHamper() throws InsufficientFoodException{
         int counter = 10;
         double tmp; 
@@ -89,11 +128,49 @@ public class Hamper {
         }
         this.minimize();
     }
+    /**
+     * Hamper ItemIDs
+     * @return Gets a list of all itemID added to hamper
+     */
     public ArrayList<Integer> getItemList(){
         ArrayList<Integer> al = new ArrayList<>(hamperSet);
         Collections.sort(al);
         return al;
     }
+    //Getter for fields.
+    //Calories in hamper for week
+    public double getCalories() {
+        return calories;
+    }
+    public double getProtein() {
+        return protein;
+    }
+    public double getOther() {
+        return other;
+    }
+    public double getGrain() {
+        return grain;
+    }
+    public double getFv() {
+        return fv;
+    }
+    //Weekly food requirements for the client
+    public double getTotalCalories() {
+        return totalCalories;
+    }
+    public double getTotalProtein() {
+        return totalProtein;
+    }
+    public double getTotalOther() {
+        return totalOther;
+    }
+    public double getTotalFV() {
+        return totalFV;
+    }
+    public double getTotalGrain() {
+        return totalGrain;
+    }
+    //Private helper methods for the algorithm.
     private void getMin(){
         minCalories = minFV = minGrain = minProtein = minOther = 1000000;
         for(Map.Entry<Integer,Food> entry : foodDatabase.entrySet()){
@@ -175,6 +252,7 @@ public class Hamper {
         }
     }
     private void minimize(){
+        Set<Integer> extraItems = new HashSet<Integer>(), addSet = new HashSet<Integer>();
         List<Integer> list = new ArrayList<Integer>(hamperSet);
         for(int i = 0; i < list.size(); i++){
             if(protein > totalProtein || fv > totalFV || other > totalOther || grain > totalGrain){
@@ -211,32 +289,5 @@ public class Hamper {
         other -= entry.getValue().getOTHER_CONTENT();
         fv -= entry.getValue().getFV_CONTENT();
         grain -= entry.getValue().getGRAIN_CONTENT();
-    }
- 
-    public void getInfo(){
-        List<Integer> list = new ArrayList<Integer>(hamperSet);
-        protein= 0;
-        calories = 0;
-        fv = 0;
-        other = 0;
-        grain = 0;
-        for(int i = 0; i < list.size(); i++){
-            protein+= foodDatabase.get(list.get(i)).getPROTEIN_CONTENT();
-            calories += foodDatabase.get(list.get(i)).getCALORIES();
-            fv += foodDatabase.get(list.get(i)).getFV_CONTENT();
-            other += foodDatabase.get(list.get(i)).getOTHER_CONTENT();
-            grain += foodDatabase.get(list.get(i)).getGRAIN_CONTENT();
-        }
-
-        // System.out.println("\nNeeded Cals " + totalCalories + " Calculated Cals " + calories);
-        // System.out.println("Needed Protein " + totalProtein + " Calculated Protein " + protein);
-        // System.out.println("Needed FV " + totalFV + " Calculated FV " + fv);
-        // System.out.println("Needed Other " + totalOther + " Calculated Other " + other);
-        // System.out.println("Needed WG " + totalGrain + " Calculated WG " + grain);
-        System.out.println("Cals " + (calories - totalCalories));
-        System.out.println("Protein " + (protein- totalProtein));
-        System.out.println("FV " + (fv - totalFV));
-        System.out.println("Other " + (other - totalOther));
-        System.out.println("WG " + (grain - totalGrain));
     }
 }
