@@ -4,77 +4,63 @@ public class Food
 {
     private final int ITEM_ID;
     private final String NAME;
-    private final int GRAIN_CONTENT;
-    private final int FV_CONTENT;
-    private final int PROTEIN_CONTENT;
-    private final int OTHER;
+    private final int GRAIN_PERCENT;
+    private final int FV_PERCENT;
+    private final int PROTEIN_PERCENT;
+    private final int OTHER_PERCENT;
+    private final double GRAIN_CONTENT;
+    private final double FV_CONTENT;
+    private final double PROTEIN_CONTENT;
+    private final double OTHER_CONTENT;
     private final int CALORIES;
 
     //constructor
 
-    public Food(int itemID, String name, int grainContent, int FVContent, int proteinContent, int other, int calories)
-    {
+    public Food(int itemID, String name, int grainContent, int FVContent, int proteinContent, int other, int calories) {
         this.ITEM_ID = itemID;
         this.NAME = name;
-        this.GRAIN_CONTENT = grainContent;
-        this.FV_CONTENT = FVContent;
-        this.PROTEIN_CONTENT = proteinContent;
-        this.OTHER = other;
+        this.GRAIN_CONTENT = .01 * grainContent * calories;
+        this.FV_CONTENT = .01 * FVContent * calories;
+        this.PROTEIN_CONTENT = .01 * proteinContent * calories;
+        this.OTHER_CONTENT = .01 * other * calories;
+        this.GRAIN_PERCENT = grainContent;
+        this.FV_PERCENT = FVContent;
+        this.PROTEIN_PERCENT = proteinContent;
+        this.OTHER_PERCENT =  other;
         this.CALORIES = calories;
     }
-
-    public int getITEM_ID()
-    {
-        return this.ITEM_ID;
+    public int getITEM_ID() {
+        return ITEM_ID;
+    }
+    public String getNAME() {
+        return NAME;
+    }
+    public int getGRAIN_PERCENT() {
+        return GRAIN_PERCENT;
+    }
+    public int getFV_PERCENT() {
+        return FV_PERCENT;
+    }
+    public int getPROTEIN_PERCENT() {
+        return PROTEIN_PERCENT;
+    }
+    public int getOTHER_PERCENT() {
+        return OTHER_PERCENT;
+    }
+    public double getGRAIN_CONTENT() {
+        return GRAIN_CONTENT;
+    }
+    public double getFV_CONTENT() {
+        return FV_CONTENT;
+    }
+    public double getPROTEIN_CONTENT() {
+        return PROTEIN_CONTENT;
+    }
+    public double getOTHER_CONTENT() {
+        return OTHER_CONTENT;
+    }
+    public int getCALORIES() {
+        return CALORIES;
     }
 
-    public String getNAME()
-    {
-        return this.NAME;
-    }
-
-    public int getGRAIN_PERCENTAGE()
-    {
-        return this.GRAIN_CONTENT;
-    }
-
-    public int getGRAIN_CONTENT()
-    {
-        return (int) Math.ceil(((double)this.GRAIN_CONTENT / 100 * (double)this.CALORIES));
-    }
-
-    public int getFV_PERCENTAGE()
-    {
-        return this.FV_CONTENT;
-    }
-
-    public int getFV_CONTENT()
-    {
-        return (int) Math.ceil(((double)this.FV_CONTENT / 100 * (double)this.CALORIES));
-    }
-
-    public int getPROTEIN_PERCENTAGE()
-    {
-        return this.PROTEIN_CONTENT;
-    }
-
-    public int getPROTEIN_CONTENT()
-    {
-        return (int) Math.ceil(((double)this.PROTEIN_CONTENT / 100 * (double)this.CALORIES));
-    }
-
-    public int getOTHER()
-    {
-        return this.OTHER;
-    }
-
-    public int getOTHER_CONTENT()
-    {
-        return (int) Math.ceil(((double)this.OTHER / 100 * (double)this.CALORIES));
-    }
-    
-    public int getCALORIES()
-    {
-        return this.CALORIES;
-    }
 }

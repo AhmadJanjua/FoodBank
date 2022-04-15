@@ -1,20 +1,9 @@
 package edu.ucalgary.ensf409;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.sql.*;
 
 public class ClientList {
-
-    public static void main(String[] args) {
-        ClientList cList = new ClientList(1, 2, 3, 4, true);
-        cList.removeClient("Adult Male");
-        System.out.println(cList.getTotalCalories());
-        Iterator<Client> it = cList.getClients().iterator();
-        while(it.hasNext()) {
-            System.out.println(it.next().getClientType());
-        }
-    }
 
     private final String DBURL = "jdbc:mysql://localhost:3306/food_inventory";
     private final String USERNAME = "student";
@@ -23,11 +12,11 @@ public class ClientList {
     private ResultSet results;
 
     private ArrayList<Client> clients = new ArrayList<>();
-    private int totalCalories= 0;
-    private int totalGrainCalories = 0;
-    private int totalFVCalories = 0;
-    private int totalProteinCalories = 0;
-    private int totalOtherCalories = 0;
+    private double totalCalories= 0;
+    private double totalGrainCalories = 0;
+    private double totalFVCalories = 0;
+    private double totalProteinCalories = 0;
+    private double totalOtherCalories = 0;
     private boolean isMobilityStruggled = false;
     private int address;
     
@@ -87,45 +76,45 @@ public class ClientList {
         return clients;
     }
     public void setNutrientNeeds() {
+        this.totalCalories = 0; 
+        this.totalGrainCalories = 0;
+        this.totalFVCalories = 0;
+        this.totalProteinCalories = 0;
+        this.totalOtherCalories = 0;
         for(int i=0; i<clients.size(); i++){
-            this.totalCalories = 0; 
-            this.totalGrainCalories = 0;
-            this.totalFVCalories = 0;
-            this.totalProteinCalories = 0;
-            this.totalOtherCalories = 0;
             Client tmp = clients.get(i);
             this.totalCalories += tmp.getCalories(); 
-            this.totalGrainCalories += Math.ceil((0.01)*tmp.getGrainPercent()*tmp.getCalories());
-            this.totalFVCalories += Math.ceil((0.01)*tmp.getFVPercent()*tmp.getCalories());
-            this.totalProteinCalories += Math.ceil((0.01)*tmp.getProteinPercent()*tmp.getCalories());
-            this.totalOtherCalories += Math.ceil((0.01)*tmp.getOtherPercent()*tmp.getCalories());
+            this.totalGrainCalories += (0.01)*tmp.getGrainPercent()*tmp.getCalories();
+            this.totalFVCalories += (0.01)*tmp.getFVPercent()*tmp.getCalories();
+            this.totalProteinCalories += (0.01)*tmp.getProteinPercent()*tmp.getCalories();
+            this.totalOtherCalories += (0.01)*tmp.getOtherPercent()*tmp.getCalories();
         }
     }
-    public int getTotalGrainCalories() {
+    public double getTotalGrainCalories() {
         return totalGrainCalories;
     }
     public void setTotalGrainCalories(int totalGrainCalories) {
         this.totalGrainCalories = totalGrainCalories;
     }
-    public int getTotalFVCalories() {
+    public double getTotalFVCalories() {
         return totalFVCalories;
     }
     public void setTotalFVCalories(int totalFVCalories) {
         this.totalFVCalories = totalFVCalories;
     }
-    public int getTotalProteinCalories() {
+    public double getTotalProteinCalories() {
         return totalProteinCalories;
     }
     public void setTotalProteinCalories(int totalProteinCalories) {
         this.totalProteinCalories = totalProteinCalories;
     }
-    public int getTotalOtherCalories() {
+    public double getTotalOtherCalories() {
         return totalOtherCalories;
     }
     public void setTotalOtherCalories(int totalOtherCalories) {
         this.totalOtherCalories = totalOtherCalories;
     }
-    public int getTotalCalories() {
+    public double getTotalCalories() {
         return totalCalories;
     }
     public void setTotalCalories(int totalCalories) {
