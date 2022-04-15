@@ -3,15 +3,7 @@ package edu.ucalgary.ensf409;
 import java.util.*;
 
 public class Hamper {
-    public static void main(String[] args) throws Exception {
-        ClientList cList = new ClientList(1, 0, 0, 1, true);
-        FoodList fList = new FoodList();
-        fList.fillFromDatabase();
-        Hamper hamper = new Hamper(cList, fList);
-        System.out.println(hamper.createOrderFormat());
-        fList.removeFromDatabase(hamper.getItemList());
-        //fList.removeFromDatabase(hamper.getItemList());
-    }
+    
     
     private double totalCalories, totalProtein, totalOther, totalFV, totalGrain;
     private double minCalories, minProtein, minGrain, minOther, minFV;
