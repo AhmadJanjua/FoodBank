@@ -1,5 +1,11 @@
 package edu.ucalgary.ensf409;
 
+
+/**
+@author Pedro Ghodsi
+@version 1.0
+@since 1.0
+*/
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

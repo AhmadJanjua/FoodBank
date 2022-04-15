@@ -1,5 +1,11 @@
 package edu.ucalgary.ensf409;
 
+
+/**
+@author Pedro Ghodsi
+@version 1.0
+@since 1.0
+*/
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -33,7 +39,7 @@ public class Order {
     }
     
     
-    
+    //not sure what to do with this right now
     public static void fileCreator(String hampersFile){
 
         try{
