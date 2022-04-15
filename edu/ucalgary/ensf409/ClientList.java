@@ -19,6 +19,7 @@ public class ClientList {
     private final String PASSWORD = "ensf";    
     private Connection dbConnect;
     private ResultSet results;
+    private String nMale;
 
     private ArrayList<Client> clients = new ArrayList<>();
     private double totalCalories= 0;
@@ -29,6 +30,7 @@ public class ClientList {
     private boolean isMobilityStruggled = false;
     private int address;
     
+
     public ClientList(int numMale, int numFemale, int under, int over, boolean isMobilityStruggled) {
         this.isMobilityStruggled = isMobilityStruggled;
         try {
@@ -81,6 +83,9 @@ public class ClientList {
         }
         this.setNutrientNeeds();
     }
+
+    
+    
     public ArrayList<Client> getClients() {
         return clients;
     }

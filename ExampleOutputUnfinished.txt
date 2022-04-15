@@ -1,65 +1,50 @@
 Name:
-Date: 2022/04/15 03:51:22
+Date: 2022/04/15 03:59:26
 
-1	Tomato Sauce, jar
-2	Tomato Sauce, jar
-5	Apple, dozen
-7	Chicken broth, can
-11	Wheat bread, loaf
-12	Wheat bread, loaf
-14	Orange, dozen
-15	Orange, dozen
-18	Chicken breast, pound
-28	Bananas, bunch
-31	Ground beef, pound
-34	Avocado, dozen
-35	Avocado, dozen
-36	Corn tortillas, pound
-46	Tomatoes, 1 kg
-49	Cauliflower, 2 heads
-50	Strawberries, 2 kg
-51	Cantaloupe, dozen
-52	Cottage cheese
-54	Soy protein, 1 kg
-69	Banana, bunch 5
-70	Banana, bunch 6
-73	Manioc, 1 pound
-74	Zucchini, 5
-75	Zucchini, 10
-76	Celeriac, 1 kg
-77	Turnip, 1 pound
-78	Kidney beans, 1 pound
-83	Carrots
-86	Eggs, 1 kg
-93	Mushrooms, 800g
-94	Canned corn, 1 tin
-95	Lentils, 1 kg
-97	Protein shake, 10 cans
-98	Soy burger, 20
-102	Black beans, 1 kg
-104	Green peas, 1 pound
-109	String cheese, pack of 20
-110	String cheese, pack of 20
-113	Butter, 4 sticks
-119	Cocktail fruits, tin
-121	Lima beans, 1 pound
-124	Tinned sardines, pack of 5
-125	Tinned sardines, pack of 5
-126	Egg salad, 57 g
-129	Radish, large bunch
-130	Kimchi, 400 g
-132	Honey, 300 g
-134	Salmon, 5 filets
-135	Frozen squid, 1 pound
-136	Cocktail shrimp, package
-139	Pearl barley, 1 pound
-142	Whey powder, large jar
-144	Tinned vegetable chilli
-147	Lettuce, 1 head
-148	Sauerkraut, 1 kg
-150	Bean sprouts, 1 kg
-155	Snake gourd
-160	Strawberry Skyr
-162	Cottage cheese
-163	Bluegreen algae powder, 100 g
-167	Cream of mushroom soup
+[edu.ucalgary.ensf409.Client@5149d738, edu.ucalgary.ensf409.Client@6bbe85a8, edu.ucalgary.ensf409.Client@3a7442c7, edu.ucalgary.ensf409.Client@4be29ed9]
+3	Tomato Sauce, jar
+9	Broccoli, 3 bunches
+10	Broccoli, 3 bunches
+20	Tuna, six large cans
+21	Tuna, six small cans
+22	Tuna, six large cans
+23	Tuna, six small cans
+24	Cheddar cheese, pound
+25	Cheddar cheese, pound
+32	Ground beef, pound
+33	Ground beef, pound
+40	Peanut butter, 2 kg jar
+43	Ground pork, pound
+53	Trail mix, 1 kg
+55	Turkey, whole
+56	Mixed nuts, 1 kg
+57	Lentils, 1 kg
+59	Tofu, 1 kg
+63	Quinoa, 1 kg
+68	Frozen pizza, pepperoni
+71	Banana, bunch 10
+72	Sweet potato, bag
+79	Beets, 1 pound
+80	Chickpeas, 1 kg
+91	Parsnip, 1 kg
+92	Yam, 1 kg
+99	Whole grain bread
+101	Beyond Breakfast sausage
+103	Horse gram, 1 kg
+106	Creamed spinach
+118	Frozen blueberries, 2100 g
+128	Onions, net of 10
+131	Roasted seaweed, 250 g
+140	Plaintain, 4
+143	Oranges, bag
+145	Raisins, 40 g
+146	Dates, container
+151	Peaches, crate
+152	Peaches, crate
+154	Pumpkin, small
+157	Dried apricots, package
+159	Adzuki bean, medium package
+161	Keffir
+166	Fish fingers, box of 30
+168	Granola cereal
+169	Black fungus, 200 g

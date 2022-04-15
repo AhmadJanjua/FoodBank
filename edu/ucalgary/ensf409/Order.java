@@ -21,6 +21,7 @@ public class Order {
         ClientList cList = new ClientList(1, 1, 1, 1, true); // to be fixed with GUI later
         FoodList fList = new FoodList();
         String nameInput = "Name:" + ""; // to be fixed with gui later
+        String clients = cList.getClients().toString();
         DateTimeFormatter today = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
         fList.fillFromDatabase();
@@ -31,6 +32,7 @@ public class Order {
             FileWriter fileWriter = new FileWriter("ExampleOutputUnfinished.txt");
             fileWriter.write(nameInput + "\n");
             fileWriter.write("Date: " +today.format(now) + "\n" + "\n");
+            fileWriter.write(clients + "\n");
             fileWriter.write(hamper.createOrderFormat());
             fileWriter.flush();
             fileWriter.close();
