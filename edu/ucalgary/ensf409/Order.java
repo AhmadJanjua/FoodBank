@@ -16,14 +16,14 @@ import java.util.Scanner;
 public class Order {
     
     public static void main(String[] args) throws InsufficientFoodException, InsufficientStockException {
-        ClientList cList = new ClientList(1, 0, 0, 1, true);
+        ClientList cList = new ClientList(1, 1, 1, 1, true);
         FoodList fList = new FoodList();
         fList.fillFromDatabase();
         Hamper hamper = new Hamper(cList, fList);
         System.out.println(hamper.createOrderFormat());
         try
         {
-            FileWriter fileWriter = new FileWriter("FILE PATH GOES HEREEEEEEEEE");
+            FileWriter fileWriter = new FileWriter("ExampleOutputUnfinished.txt");
             fileWriter.write(hamper.createOrderFormat());
             fileWriter.flush();
             fileWriter.close();
