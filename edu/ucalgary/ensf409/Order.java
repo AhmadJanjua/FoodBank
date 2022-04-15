@@ -15,6 +15,19 @@ public class Order {
         fList.fillFromDatabase();
         Hamper hamper = new Hamper(cList, fList);
         System.out.println(hamper.createOrderFormat());
+        try
+        {
+            FileWriter fileWriter = new FileWriter("FILE PATH GOES HEREEEEEEEEE");
+            fileWriter.write(hamper.createOrderFormat());
+            fileWriter.flush();
+            fileWriter.close();
+        }
+        catch(IOException ioException)
+        {
+            ioException.printStackTrace();
+        }
+        
+
         fList.removeFromDatabase(hamper.getItemList());
         //fList.removeFromDatabase(hamper.getItemList());
     }
