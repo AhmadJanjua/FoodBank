@@ -7,6 +7,8 @@ package edu.ucalgary.ensf409;
 @since 1.0
 */
 import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;    
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,14 +18,19 @@ import java.util.Scanner;
 public class Order {
     
     public static void main(String[] args) throws InsufficientFoodException, InsufficientStockException {
-        ClientList cList = new ClientList(1, 1, 1, 1, true);
+        ClientList cList = new ClientList(1, 1, 1, 1, true); // to be fixed with GUI later
         FoodList fList = new FoodList();
+        String nameInput = "Name:" + ""; // to be fixed with gui later
+        DateTimeFormatter today = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
         fList.fillFromDatabase();
         Hamper hamper = new Hamper(cList, fList);
         System.out.println(hamper.createOrderFormat());
         try
         {
             FileWriter fileWriter = new FileWriter("ExampleOutputUnfinished.txt");
+            fileWriter.write(nameInput + "\n");
+            fileWriter.write("Date: " +today.format(now) + "\n" + "\n");
             fileWriter.write(hamper.createOrderFormat());
             fileWriter.flush();
             fileWriter.close();
