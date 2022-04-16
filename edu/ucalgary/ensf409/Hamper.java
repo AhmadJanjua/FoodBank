@@ -123,7 +123,7 @@ public class Hamper {
             }
 
             if(counter-- == 0){
-                throw new InsufficientFoodException("NOT enout items");///NOTENOUGHFOOD
+                throw new InsufficientFoodException("NOT enough items");///NOTENOUGHFOOD
             }
         }
         this.minimize();
