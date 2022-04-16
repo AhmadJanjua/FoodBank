@@ -69,6 +69,10 @@ public class Order {
         return counter;
     }
 
+    public static synchronized void decrement(){
+        counter--;
+    }
+
     public void addFirstOrder() throws InsufficientFoodException, InsufficientStockException {
 
         if (GUI.adultMaleBox.getText().isEmpty()) {
