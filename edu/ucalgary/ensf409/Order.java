@@ -50,6 +50,7 @@ public class Order {
             fileWriter.append("Hamper " + counter + ": " + cList.getClientString() + "\n\n");
             fileWriter.append("Hamper " + counter + " Items:\n");
             fileWriter.append(hamper.createOrderFormat() + "\n\n");
+            /////////////////////////////////////////////////////
             System.out.println(counter);
             Order.increment();
             fileWriter.flush();

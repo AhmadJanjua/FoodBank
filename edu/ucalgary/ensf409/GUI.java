@@ -47,6 +47,10 @@ public class GUI extends JPanel {
         JOptionPane.showMessageDialog(null, info, "Complete!", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public static void successBox(String info, String title){
+        JOptionPane.showMessageDialog(null, info, "Success!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     class ClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Order order = new Order();
@@ -54,6 +58,8 @@ public class GUI extends JPanel {
                 if (e.getSource() == continueHamperButton) {
                     try {
                         order.addFirstOrder();
+                        successBox("Hamper added Successfully", "Addition Successful");
+
                     } catch (InsufficientFoodException e2) {
                         e2.printStackTrace();
                     }
@@ -64,6 +70,7 @@ public class GUI extends JPanel {
                 if (e.getSource() == continueHamperButton) {
                     try {
                         order.orderCreation();
+                        successBox("Hamper added Successfully", "Addition Successful");
                     } catch (InsufficientFoodException e1) {
                         e1.printStackTrace();
                     } catch (InsufficientStockException e1) {
