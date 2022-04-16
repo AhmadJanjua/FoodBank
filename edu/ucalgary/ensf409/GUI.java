@@ -2,35 +2,17 @@ package edu.ucalgary.ensf409;
 
 /**
 @author Pedro Ghodsi
-@version 1.7
+@version 1.8
 @since 1.0
 */
-
+import java.io.File;
 import java.awt.*;
-//import java.awt.event.*;
 import javax.swing.*;
-//import javax.swing.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.awt.event.ItemEvent;
-//import java.awt.event.ItemListener;
-//import java.awt.event.KeyEvent;
-//import javax.swing.AbstractButton;
-//import javax.swing.ButtonModel;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-//import javax.swing.event.ChangeEvent;
-//import javax.swing.event.ChangeListener;
-//import java.awt.EventQueue;
-//import java.util.ArrayList;
-//import java.time.format.DateTimeFormatter;
-//import java.time.LocalDateTime;
-//import java.io.File;
-//import java.io.FileNotFoundException;
-//import java.io.FileWriter;
-//import java.io.IOException;
-//import java.util.Scanner;
 
 public class GUI extends JPanel {
     public static JLabel hamperCreatorLabel;
@@ -49,6 +31,7 @@ public class GUI extends JPanel {
     public static JTextField postCodeBox;
     public static JButton continueHamperButton;
     public static JButton finalizeHamperButton;
+    public static JButton exitButton;
     public static int counting;
 
     public GUI() {
@@ -56,8 +39,12 @@ public class GUI extends JPanel {
 
     }
 
-    public static void errorBox (String info, String title){
-        JOptionPane.showMessageDialog(null, info, "Error:", JOptionPane.INFORMATION_MESSAGE);
+    public static void errorBox(String info, String title) {
+        JOptionPane.showMessageDialog(null, info, "Error!", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void completionBox(String info, String title) {
+        JOptionPane.showMessageDialog(null, info, "Complete!", JOptionPane.INFORMATION_MESSAGE);
     }
 
     class ClickListener implements ActionListener {
@@ -92,7 +79,36 @@ public class GUI extends JPanel {
     class ClickListenerTwo implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == finalizeHamperButton) {
+                adultFemaleBox.setEditable(false);
+                adultMaleBox.setEditable(false);
+                under8Box.setEditable(false);
+                over8Box.setEditable(false);
+                postCodeBox.setEditable(false);
+                mobReqBox.setEnabled(false);
+                continueHamperButton.setEnabled(false);
+                finalizeHamperButton.setEnabled(false);
+                completionBox(
+                        "Hamper(s) has/have been created successfully! Refer to output file for completed hampers. You may exit the Order Form now.",
+                        "Success!");
+            }
+        }
+    }
+
+    class ClickListenerThree implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == exitButton) {
                 System.exit(1);
+            }
+        }
+    }
+
+    class PostCodeBoxListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == GUI.mobReqBox) {
+                postCodeBox.setEditable(true);
+            }
+            if (!(mobReqBox.isSelected())) {
+                postCodeBox.setEditable(false);
             }
         }
     }
@@ -108,16 +124,22 @@ public class GUI extends JPanel {
         over8Box = new JTextField(5);
         under8 = new JLabel("Under 8:");
         under8Box = new JTextField(5);
-        postCode = new JLabel("Postal Code (ex. T2N 1N4)");
+        postCode = new JLabel("Postal Code (ex. T2N 1N4, T2N1N4, t2n1n4)");
         postCodeBox = new JTextField(5);
         continueHamperButton = new JButton("Add Hamper with Current Parameters");
         finalizeHamperButton = new JButton("Finalize All Hampers");
+        exitButton = new JButton("Exit");
         hamperCreatorLabel = new JLabel("Hamper Creator");
         mobReqBox = new JCheckBox("Mobility Accomodations Required");
         ClickListener click = new ClickListener();
         continueHamperButton.addActionListener(click);
         ClickListenerTwo clickEnd = new ClickListenerTwo();
         finalizeHamperButton.addActionListener(clickEnd);
+        ClickListenerThree clickExit = new ClickListenerThree();
+        exitButton.addActionListener(clickExit);
+        postCodeBox.setEditable(false);
+        PostCodeBoxListener postCodeActivate = new PostCodeBoxListener();
+        mobReqBox.addActionListener(postCodeActivate);
 
         // adjust size and set layout
         setPreferredSize(new Dimension(683, 334));
@@ -136,22 +158,26 @@ public class GUI extends JPanel {
         add(over8Box);
         add(under8);
         add(under8Box);
+        add(mobReqBox);
         add(postCode);
         add(postCodeBox);
-        add(mobReqBox);
         add(continueHamperButton);
         add(finalizeHamperButton);
+        add(exitButton);
     }
 
-    public static void main(String[] args) throws InsufficientFoodException, InsufficientStockException {
+    public static void main(String[] args) {
 
+        File delete = new File("Finalized Hamper Order.txt");
+        delete.delete();
         JFrame frame = new JFrame("GUI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(new GUI());
         frame.pack();
         frame.setVisible(true);
-        // boolean inNeed = MobilityStruggling();
 
     }
 
+    // PostCodeBoxListener postCodeBoxListen = new PostCodeBoxListener();
+    // GUI.mobReqBox.addActionListener(postCodeBoxListen);
 }
