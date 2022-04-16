@@ -50,11 +50,8 @@ public class Order {
             fileWriter.append("Hamper " + counter + ": " + cList.getClientString() + "\n\n");
             fileWriter.append("Hamper " + counter + " Items:\n");
             fileWriter.append(hamper.createOrderFormat() + "\n\n");
-<<<<<<< HEAD
             /////////////////////////////////////////////////////
-=======
             fList.removeFromDatabase(hamper.getItemList());
->>>>>>> cb6c5643936508da9e99d4ea7c23d642635c6fa1
             System.out.println(counter);
             Order.increment();
             fileWriter.flush();
