@@ -2,7 +2,7 @@ package edu.ucalgary.ensf409;
 
 /**
 @author Pedro Ghodsi
-@version 1.1
+@version 1.7
 @since 1.0
 */
 
