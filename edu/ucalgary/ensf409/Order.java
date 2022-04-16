@@ -50,6 +50,7 @@ public class Order {
             fileWriter.append("Hamper " + counter + ": " + cList.getClientString() + "\n\n");
             fileWriter.append("Hamper " + counter + " Items:\n");
             fileWriter.append(hamper.createOrderFormat() + "\n\n");
+            fList.removeFromDatabase(hamper.getItemList());
             System.out.println(counter);
             Order.increment();
             fileWriter.flush();
@@ -67,7 +68,7 @@ public class Order {
         return counter;
     }
 
-    public void addFirstOrder() throws InsufficientFoodException {
+    public void addFirstOrder() throws InsufficientFoodException, InsufficientStockException {
 
         if (GUI.adultMaleBox.getText().isEmpty()) {
             GUI.errorBox("Error, enter valid # for adultMaleNumbers", "error");
@@ -109,6 +110,7 @@ public class Order {
             headerWriter.append("Hamper " + hamperNumber + ": " + cList.getClientString() + "\n\n");
             headerWriter.append("Hamper " + hamperNumber + " Items:\n");
             headerWriter.append(hamper.createOrderFormat() + "\n\n");
+            fList.removeFromDatabase(hamper.getItemList());
             headerWriter.flush();
             headerWriter.close();
         } catch (IOException ioException) {

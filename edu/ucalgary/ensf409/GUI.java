@@ -56,6 +56,8 @@ public class GUI extends JPanel {
                         order.addFirstOrder();
                     } catch (InsufficientFoodException e2) {
                         e2.printStackTrace();
+                    } catch (InsufficientStockException e1) {
+                        e1.printStackTrace();
                     }
                 }
                 counting++;
