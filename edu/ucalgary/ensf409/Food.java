@@ -15,7 +15,6 @@ public class Food
     private final int CALORIES;
 
     //constructor
-
     public Food(int itemID, String name, int grainContent, int FVContent, int proteinContent, int other, int calories) {
         this.ITEM_ID = itemID;
         this.NAME = name;

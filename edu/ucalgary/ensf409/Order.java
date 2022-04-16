@@ -70,15 +70,15 @@ public class Order {
         }
     }
 
-    public static synchronized void increment() {
+    public static void increment() {
         counter++;
     }
 
-    public static synchronized int getCounter() {
+    public static int getCounter() {
         return counter;
     }
 
-    public static synchronized void decrement() {
+    public static void decrement() {
         counter--;
     }
 

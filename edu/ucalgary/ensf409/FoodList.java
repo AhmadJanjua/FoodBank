@@ -16,19 +16,16 @@ It also provides info about the nutrition
 */
 public class FoodList {
 
-    public static void main(String[] args) {
-        FoodList hashM = new FoodList();
-        hashM.fillFromDatabase();
-        System.out.println("hashmap is: "+ hashM.getFoodList());
-        hashM.close();
-    }
-
     //Fields to connect to the database
     private final String DBURL = "jdbc:mysql://localhost:3306/food_inventory";
     private final String USERNAME = "student";
     private final String PASSWORD = "ensf";    
     private Connection dbConnect;
     private ResultSet results;
+
+    //Field for the FoodList class
+    private HashMap<Integer,Food> currentFood;
+
     /**
      * Creates a new hashmap thats filled with Food objects from the
      * available_food database.
@@ -99,9 +96,6 @@ public class FoodList {
             ex.printStackTrace();
         }
     }
-    //Field for the FoodList class
-    private HashMap<Integer,Food> currentFood;
-
     /**
      * Default constructor that initializes an empty HashMap
      */

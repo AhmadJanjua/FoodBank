@@ -12,9 +12,9 @@ info that can be used to determine their needs.
 
 public class Client
 {
+    private final String CLIENT_TYPE;
     private static int counter = 1;
     private int clientID;
-    private final String CLIENT_TYPE;
     private int percentGrain;
     private int percentFV;
     private int percentProtein;
@@ -39,59 +39,48 @@ public class Client
     public String getClientType(){
         return this.CLIENT_TYPE;
     }
-
     public int getGrainPercent()
     {
         return this.percentGrain;
     }
-
     public int getProteinPercent()
     {
         return this.percentProtein;
     }
-
     public int getFVPercent()
     {
         return this.percentFV;
     }
-
     public int getOtherPercent()
     {
         return this.percentOther;
     }
-
     public int getCalories()
     {
         return this.calories;
     }
-
     public int getclientID()
     {
         return this.clientID;
     }
 
     // setters
-
     public void setGrainPercent(int grainPercent)
     {
         this.percentGrain = grainPercent;
     }
-
     public void setProteinPercent(int protienPercent)
     {
         this.percentProtein = protienPercent;
     }
-
     public void setFVPercent(int fvPercent)
     {
         this.percentFV = fvPercent;
     }
-
     public void setOtherPercent(int other)
     {
         this.percentOther = other;
     }
-
     public void setCalories(int calories)
     {
         this.calories = calories;

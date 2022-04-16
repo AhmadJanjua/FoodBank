@@ -19,17 +19,24 @@ public class ClientList {
     private final String PASSWORD = "ensf";    
     private Connection dbConnect;
     private ResultSet results;
-    private int numMale, numFemale, under, over;
+    public void close() {
+        try {
+            results.close();    
+            dbConnect.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
+
+    private int numMale, numFemale, under, over;
     private ArrayList<Client> clients = new ArrayList<>();
     private double totalCalories= 0;
     private double totalGrainCalories = 0;
     private double totalFVCalories = 0;
     private double totalProteinCalories = 0;
     private double totalOtherCalories = 0;
-    private boolean isMobilityStruggled = false;
-    private int address;
-    
+    private boolean isMobilityStruggled = false;    
 
     public ClientList(int numMale, int numFemale, int under, int over, boolean isMobilityStruggled) {
         this.numMale = numMale;
@@ -107,30 +114,27 @@ public class ClientList {
             this.totalOtherCalories += (0.01)*tmp.getOtherPercent()*tmp.getCalories();
         }
     }
+    //Returns a String of clients
+    public String getClientString() {
+            String clientString = "";
+            if(numMale != 0){
+                clientString += numMale + " Adult Male, ";
+            }
+            if(numFemale != 0){
+                clientString += numFemale + " Adult Female, ";
+            }
+            if(under != 0){
+                clientString += under + " Child under 8, ";
+            }
+            if(over != 0){
+                clientString += over + " Child over 8, ";
+            }
+            return clientString.substring(0, clientString.length()-2);
+    
+        }
     public double getTotalGrainCalories() {
         return totalGrainCalories;
     }
-    //Returns a String of clients
-    public String getClientString() {
-        String clientString = "";
-        if(numMale != 0){
-            clientString += numMale + " Adult Male, ";
-        }
-        if(numFemale != 0){
-            clientString += numFemale + " Adult Female, ";
-        }
-        if(under != 0){
-            clientString += under + " Child under 8, ";
-        }
-        if(over != 0){
-            clientString += over + " Child over 8, ";
-        }
-        return clientString.substring(0, clientString.length()-2);
-
-    }
-
-
-
     public void setTotalGrainCalories(int totalGrainCalories) {
         this.totalGrainCalories = totalGrainCalories;
     }
@@ -164,12 +168,6 @@ public class ClientList {
     public void setMobilityStruggled(boolean isMobilityStruggled) {
         this.isMobilityStruggled = isMobilityStruggled;
     }
-    public int getAddress() {
-        return address;
-    }
-    public void setAddress(int address) {
-        this.address = address;
-    }
     public void removeClient(String client) {
         for(int i= 0; i<clients.size(); i++){
             if(clients.get(i).getClientType().equals(client)){
@@ -178,13 +176,5 @@ public class ClientList {
             }
         }
         this.setNutrientNeeds();
-    }
-    public void close() {
-        try {
-            results.close();    
-            dbConnect.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
     }
 }
