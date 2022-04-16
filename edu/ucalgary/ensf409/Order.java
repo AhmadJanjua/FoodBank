@@ -23,11 +23,10 @@ import java.io.FileReader;
 
 public class Order {
     
+    private static int counter = 2;
 
     public void orderCreation() throws InsufficientFoodException, InsufficientStockException{
         ClientList cList = new ClientList(1, 1, 1, 1, GUI.mobReqBox.isSelected()); // to be fixed with GUI later
-        GUI needCounter = new GUI();
-
         //System.out.println(cList.getClientString());   ADDED to Check if it prints out the clientlist properly
         FoodList fList = new FoodList();
         fList.fillFromDatabase();
@@ -41,10 +40,11 @@ public class Order {
                 fileWriter.append("Your Postal Code: " + GUI.postCodeBox.getText() + "\n");
             }
             fileWriter.append("Original Request" +"\n");
-            fileWriter.append("Hamper " + needCounter.counting + ": " + cList.getClientString() + "\n\n" );
-            fileWriter.append("Hamper " + needCounter.counting +" Items:\n");
+            fileWriter.append("Hamper " + counter + ": " + cList.getClientString() + "\n\n" );
+            fileWriter.append("Hamper " + counter +" Items:\n");
             fileWriter.append(hamper.createOrderFormat() + "\n\n");
-            
+            System.out.println(counter);
+            Order.increment();
             fileWriter.flush();
             fileWriter.close();
         }
@@ -52,6 +52,13 @@ public class Order {
         {
             ioException.printStackTrace();
         }
+    }
+
+    public static synchronized void increment(){
+        counter++;
+    }
+    public static synchronized int getCounter(){
+        return counter;
     }
 
     public void addFirstOrder() throws InsufficientFoodException{

@@ -58,8 +58,7 @@ public class GUI extends JPanel {
     class ClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Order order = new Order();
-            counting++;
-            if (counting == 1) {
+            if (counting <= 0) {
                 if (e.getSource() == continueHamperButton) {
                     try {
                         order.addFirstOrder();
@@ -67,6 +66,7 @@ public class GUI extends JPanel {
                         e2.printStackTrace();
                     }
                 }
+                counting++;
             } else {
 
                 if (e.getSource() == continueHamperButton) {
@@ -77,6 +77,7 @@ public class GUI extends JPanel {
                     } catch (InsufficientStockException e1) {
                         e1.printStackTrace();
                     }
+                    counting++;
                 }
             }
         }
