@@ -2,7 +2,7 @@ package edu.ucalgary.ensf409;
 
 /**
 @author Pedro Ghodsi
-@version 1.9
+@version 2.0
 @since 1.0
 */
 import java.time.format.DateTimeFormatter;

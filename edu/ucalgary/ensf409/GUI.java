@@ -2,7 +2,7 @@ package edu.ucalgary.ensf409;
 
 /**
 @author Pedro Ghodsi
-@version 1.8
+@version 1.9
 @since 1.0
 */
 import java.io.File;
@@ -70,15 +70,17 @@ public class GUI extends JPanel {
                         e1.printStackTrace();
                     }
                     counting++;
-                    name.setEditable(false);
+                    
                 }
-            }
+                
+            }name.setEditable(false);
         }
     }
 
     class ClickListenerTwo implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             if (e.getSource() == finalizeHamperButton) {
+                name.setEditable(false);
                 adultFemaleBox.setEditable(false);
                 adultMaleBox.setEditable(false);
                 under8Box.setEditable(false);
@@ -178,6 +180,4 @@ public class GUI extends JPanel {
 
     }
 
-    // PostCodeBoxListener postCodeBoxListen = new PostCodeBoxListener();
-    // GUI.mobReqBox.addActionListener(postCodeBoxListen);
 }
