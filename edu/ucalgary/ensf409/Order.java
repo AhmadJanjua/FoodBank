@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 //import java.util.Scanner;
-
 //import edu.ucalgary.ensf409.GUI.ClickListener;
 
 //import java.io.BufferedReader;
@@ -26,7 +25,22 @@ public class Order {
     private static int counter = 2;
 
     public void orderCreation() throws InsufficientFoodException, InsufficientStockException{
-        ClientList cList = new ClientList(1, 1, 1, 1, GUI.mobReqBox.isSelected()); // to be fixed with GUI later
+        
+        if (GUI.adultMaleBox.getText().isEmpty()){
+            GUI.errorBox("Error, enter valid # for adultMaleNumbers", "error");
+        }
+        if (GUI.adultFemaleBox.getText().isEmpty()){
+            GUI.errorBox("Error, enter valid # for adultFemaleNumbers", "error");
+        }
+        if (GUI.under8Box.getText().isEmpty()){
+            GUI.errorBox("Error, enter valid # for adultUnder8Numbers", "error");
+        }
+        if (GUI.over8Box.getText().isEmpty()){
+            GUI.errorBox("Error, enter valid # for adultOver8Numbers", "error");
+        }
+        
+        
+        ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText()), Integer.parseInt(GUI.adultFemaleBox.getText()), Integer.parseInt(GUI.under8Box.getText()), Integer.parseInt(GUI.over8Box.getText()), GUI.mobReqBox.isSelected());
         //System.out.println(cList.getClientString());   ADDED to Check if it prints out the clientlist properly
         FoodList fList = new FoodList();
         fList.fillFromDatabase();
@@ -61,8 +75,25 @@ public class Order {
         return counter;
     }
 
+
+
+
     public void addFirstOrder() throws InsufficientFoodException{
-        ClientList cList = new ClientList(1, 1, 1, 1, GUI.mobReqBox.isSelected()); // to be fixed with GUI later
+        
+        if (GUI.adultMaleBox.getText().isEmpty()){
+            GUI.errorBox("Error, enter valid # for adultMaleNumbers", "error");
+        }
+        if (GUI.adultFemaleBox.getText().isEmpty()){
+            GUI.errorBox("Error, enter valid # for adultFemaleNumbers", "error");
+        }
+        if (GUI.under8Box.getText().isEmpty()){
+            GUI.errorBox("Error, enter valid # for adultUnder8Numbers", "error");
+        }
+        if (GUI.over8Box.getText().isEmpty()){
+            GUI.errorBox("Error, enter valid # for adultOver8Numbers", "error");
+        }
+        
+        ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText()), Integer.parseInt(GUI.adultFemaleBox.getText()), Integer.parseInt(GUI.under8Box.getText()), Integer.parseInt(GUI.over8Box.getText()), GUI.mobReqBox.isSelected());
         //System.out.println(cList.getClientString());   ADDED to Check if it prints out the clientlist properly
         FoodList fList = new FoodList();
         int hamperNumber = 1;

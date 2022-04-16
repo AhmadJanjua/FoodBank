@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 //import javax.swing.ButtonModel;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 //import javax.swing.event.ChangeEvent;
 //import javax.swing.event.ChangeListener;
 //import java.awt.EventQueue;
@@ -55,6 +56,10 @@ public class GUI extends JPanel {
 
     }
 
+    public static void errorBox (String info, String title){
+        JOptionPane.showMessageDialog(null, info, "Error:", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     class ClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Order order = new Order();
@@ -78,6 +83,7 @@ public class GUI extends JPanel {
                         e1.printStackTrace();
                     }
                     counting++;
+                    name.setEditable(false);
                 }
             }
         }
@@ -104,7 +110,7 @@ public class GUI extends JPanel {
         under8Box = new JTextField(5);
         postCode = new JLabel("Postal Code (ex. T2N 1N4)");
         postCodeBox = new JTextField(5);
-        continueHamperButton = new JButton("Add Current Hamper");
+        continueHamperButton = new JButton("Add Hamper with Current Parameters");
         finalizeHamperButton = new JButton("Finalize All Hampers");
         hamperCreatorLabel = new JLabel("Hamper Creator");
         mobReqBox = new JCheckBox("Mobility Accomodations Required");
