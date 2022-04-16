@@ -17,7 +17,42 @@ import java.util.Scanner;
 
 public class Order {
     
-    public static void main(String[] args) throws InsufficientFoodException, InsufficientStockException {
+    public void orderCreation() throws InsufficientFoodException, InsufficientStockException{
+    ClientList cList = new ClientList(1, 1, 1, 1, GUI.mobReqBox.isSelected()); // to be fixed with GUI later
+        //System.out.println(cList.getClientString());   ADDED to Check if it prints out the clientlist properly
+        FoodList fList = new FoodList();
+        String nameInput = "Name:" + ""; // to be fixed with gui later
+        DateTimeFormatter today = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        int hamperNumber = 1;
+        LocalDateTime now = LocalDateTime.now();
+        fList.fillFromDatabase();
+        Hamper hamper = new Hamper(cList, fList);
+        System.out.println(hamper.createOrderFormat());
+        try
+        {
+            FileWriter fileWriter = new FileWriter("ExampleOutputUnfinished.txt", true);
+            fileWriter.append(nameInput + "\n");
+            fileWriter.append("Date: " +today.format(now) + "\n" + "\n");
+            if(GUI.mobReqBox.isSelected() == true){
+                fileWriter.append("Mobility Accomodations Requested, Delivery is Available\n");
+            }
+            fileWriter.append("Original Request" +"\n");
+            fileWriter.append("Hamper " + hamperNumber + ": " + cList.getClientString() + "\n\n" );
+            fileWriter.append("Hamper " + hamperNumber +" Items:\n");
+            fileWriter.append(hamper.createOrderFormat());
+            
+            fileWriter.flush();
+            fileWriter.close();
+        }
+        catch(IOException ioException)
+        {
+            ioException.printStackTrace();
+        }
+    }
+    
+    
+    
+    /*public static void main(String[] args) throws InsufficientFoodException, InsufficientStockException {
         ClientList cList = new ClientList(1, 1, 1, 1, true); // to be fixed with GUI later
         //System.out.println(cList.getClientString());   ADDED to Check if it prints out the clientlist properly
         FoodList fList = new FoodList();
@@ -48,7 +83,7 @@ public class Order {
 
         fList.removeFromDatabase(hamper.getItemList());
         //fList.removeFromDatabase(hamper.getItemList());
-    }
+    }*/
     
     
     //not sure what to do with this right now

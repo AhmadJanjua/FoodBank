@@ -11,11 +11,32 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonModel;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;    
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+ 
 
 
 public class GUI extends JPanel {
     private JLabel hamperCreatorLabel;
-    private JCheckBox mobReqBox;
+    public static JCheckBox mobReqBox;
     private JLabel adultMaleLabel;
     private JTextField adultMaleBox;
     private JLabel adultFemaleLabel;
@@ -30,9 +51,34 @@ public class GUI extends JPanel {
     private JButton finalizeHamperButton;
 
     public GUI() {
-        //construct components
-        hamperCreatorLabel = new JLabel ("Hamper Creator");
-        mobReqBox = new JCheckBox ("Mobility Accomodations Required");
+        initComponents();
+        
+    }
+
+    class ClickListener implements ActionListener{
+        public void actionPerformed(ActionEvent e) { 
+            if (e.getSource() == continueHamperButton){
+                Order order = new Order();
+                try {
+                    order.orderCreation();
+                } catch (InsufficientFoodException e1) {
+                    e1.printStackTrace();
+                } catch (InsufficientStockException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+    }
+
+    class ClickListenerTwo implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            if(e.getSource() == finalizeHamperButton){
+                System.exit(1);
+            }
+        }
+    }
+
+    public void initComponents(){
         adultMaleLabel = new JLabel ("Adult Males:");
         adultMaleBox = new JTextField (5);
         adultFemaleLabel = new JLabel ("Adult Females:");
@@ -43,14 +89,23 @@ public class GUI extends JPanel {
         under8Box = new JTextField (5);
         postCode = new JLabel ("Postal Code (ex. T2N 1N4)");
         postCodeBox = new JTextField (5);
-        continueHamperButton = new JButton ("Add Another Hamper");
+        continueHamperButton = new JButton ("Add Current Hamper");
         finalizeHamperButton = new JButton ("Finalize All Hampers");
+        hamperCreatorLabel = new JLabel ("Hamper Creator");
+        mobReqBox = new JCheckBox ("Mobility Accomodations Required");
+        ClickListener click = new ClickListener();
+        continueHamperButton.addActionListener(click);
+        ClickListenerTwo clickEnd = new ClickListenerTwo();
+        finalizeHamperButton.addActionListener(clickEnd);
 
+    
+        
         //adjust size and set layout
         setPreferredSize (new Dimension (683, 334));
         BoxLayout layout = new BoxLayout (this, BoxLayout.Y_AXIS);
         setLayout (layout);
-
+        
+        
         //add components
         add (hamperCreatorLabel);
         add (mobReqBox);
@@ -69,13 +124,20 @@ public class GUI extends JPanel {
     }
 
 
-    public static void main (String[] args) {
-        JFrame frame = new JFrame ("MyPanel");
+    public static void main(String[] args) throws InsufficientFoodException, InsufficientStockException {
+        
+        JFrame frame = new JFrame ("GUI");
         frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add (new GUI());
         frame.pack();
         frame.setVisible (true);
-    }
+        //boolean inNeed = MobilityStruggling();
+        
+
+    
+        
+}
+
 }
 
 
