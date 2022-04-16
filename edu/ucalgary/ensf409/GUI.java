@@ -12,10 +12,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class testGUInoForm extends JPanel {
+
+public class GUI extends JPanel {
     private JLabel hamperCreatorLabel;
-    private JLabel nameLabel;
-    private JTextField nameBox;
     private JCheckBox mobReqBox;
     private JLabel adultMaleLabel;
     private JTextField adultMaleBox;
@@ -27,12 +26,12 @@ public class testGUInoForm extends JPanel {
     private JTextField under8Box;
     private JLabel postCode;
     private JTextField postCodeBox;
+    private JButton continueHamperButton;
+    private JButton finalizeHamperButton;
 
-    public testGUInoForm() {
+    public GUI() {
         //construct components
         hamperCreatorLabel = new JLabel ("Hamper Creator");
-        nameLabel = new JLabel ("nameLabel");
-        nameBox = new JTextField (1);
         mobReqBox = new JCheckBox ("Mobility Accomodations Required");
         adultMaleLabel = new JLabel ("Adult Males:");
         adultMaleBox = new JTextField (5);
@@ -44,16 +43,16 @@ public class testGUInoForm extends JPanel {
         under8Box = new JTextField (5);
         postCode = new JLabel ("Postal Code (ex. T2N 1N4)");
         postCodeBox = new JTextField (5);
+        continueHamperButton = new JButton ("Add Another Hamper");
+        finalizeHamperButton = new JButton ("Finalize All Hampers");
 
         //adjust size and set layout
-        setPreferredSize (new Dimension (726, 272));
+        setPreferredSize (new Dimension (683, 334));
         BoxLayout layout = new BoxLayout (this, BoxLayout.Y_AXIS);
         setLayout (layout);
 
         //add components
         add (hamperCreatorLabel);
-        add (nameLabel);
-        add (nameBox);
         add (mobReqBox);
         add (adultMaleLabel);
         add (adultMaleBox);
@@ -65,6 +64,18 @@ public class testGUInoForm extends JPanel {
         add (under8Box);
         add (postCode);
         add (postCodeBox);
+        add (continueHamperButton);
+        add (finalizeHamperButton);
+    }
+
+
+    public static void main (String[] args) {
+        JFrame frame = new JFrame ("MyPanel");
+        frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add (new GUI());
+        frame.pack();
+        frame.setVisible (true);
     }
 }
+
 
