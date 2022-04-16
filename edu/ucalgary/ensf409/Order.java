@@ -23,7 +23,7 @@ public class Order {
         FoodList fList = new FoodList();
         String nameInput = "Name:" + ""; // to be fixed with gui later
         DateTimeFormatter today = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        int hamperNumber = 0;
+        int hamperNumber = 1;
         LocalDateTime now = LocalDateTime.now();
         fList.fillFromDatabase();
         Hamper hamper = new Hamper(cList, fList);
@@ -34,7 +34,8 @@ public class Order {
             fileWriter.write(nameInput + "\n");
             fileWriter.write("Date: " +today.format(now) + "\n" + "\n");
             fileWriter.write("Original Request" +"\n");
-            fileWriter.write("Hamper " + hamperNumber + ":" + cList.getClientString() + "\n" );
+            fileWriter.write("Hamper " + hamperNumber + ": " + cList.getClientString() + "\n\n" );
+            fileWriter.write("Hamper " + hamperNumber +" Items:\n");
             fileWriter.write(hamper.createOrderFormat());
             fileWriter.flush();
             fileWriter.close();
