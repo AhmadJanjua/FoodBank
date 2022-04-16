@@ -33,7 +33,7 @@ public class Order {
             FileWriter fileWriter = new FileWriter("ExampleOutputUnfinished.txt");
             fileWriter.write(nameInput + "\n");
             fileWriter.write("Date: " +today.format(now) + "\n" + "\n");
-            fileWriter.write(clients + "\n");
+            fileWriter.write(cList.getClientString() + "\n");
             fileWriter.write(hamper.createOrderFormat());
             fileWriter.flush();
             fileWriter.close();
