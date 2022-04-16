@@ -13,7 +13,6 @@ public class InsufficientFoodException extends Exception {
     public InsufficientFoodException(String errormessage) {
         super(errormessage);
         foodExceptionBox("There are not enough food items to satisfy that order, try again.", "Not Enough Food");
-
         
     }
 

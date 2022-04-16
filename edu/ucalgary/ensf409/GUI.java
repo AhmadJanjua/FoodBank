@@ -50,15 +50,18 @@ public class GUI extends JPanel {
     public static void successBox(String info, String title){
         JOptionPane.showMessageDialog(null, info, "Success!", JOptionPane.INFORMATION_MESSAGE);
     }
+    public static void postCodeError(String info, String title){
+        JOptionPane.showMessageDialog(null, info, "Invalid Postal Code", JOptionPane.INFORMATION_MESSAGE);
+    }
 
     class ClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Order order = new Order();
             if (counting <= 0) {
                 if (e.getSource() == continueHamperButton) {
+                    
                     try {
                         order.addFirstOrder();
-                        successBox("Hamper added Successfully", "Addition Successful");
 
                     } catch (InsufficientFoodException e2) {
                         e2.printStackTrace();
@@ -73,7 +76,7 @@ public class GUI extends JPanel {
                 if (e.getSource() == continueHamperButton) {
                     try {
                         order.orderCreation();
-                        successBox("Hamper added Successfully", "Addition Successful");
+                        
                     } catch (InsufficientFoodException e1) {
                         e1.printStackTrace();
                     } catch (InsufficientStockException e1) {
@@ -136,7 +139,7 @@ public class GUI extends JPanel {
         over8Box = new JTextField(5);
         under8 = new JLabel("Under 8:");
         under8Box = new JTextField(5);
-        postCode = new JLabel("Postal Code (ex. T2N 1N4, T2N1N4, t2n1n4)");
+        postCode = new JLabel("Postal Code (ex. T2N 1N4, T2N1N4)");
         postCodeBox = new JTextField(5);
         continueHamperButton = new JButton("Add Hamper with Current Parameters");
         finalizeHamperButton = new JButton("Finalize All Hampers");

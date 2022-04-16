@@ -16,17 +16,25 @@ public class Order {
 
     public void orderCreation() throws InsufficientFoodException, InsufficientStockException {
 
-        if (GUI.adultMaleBox.getText().isEmpty()) {
-            GUI.errorBox("Error, enter valid # for adultMaleNumbers", "error");
+        if (GUI.adultMaleBox.getText().isEmpty() || (!(GUI.adultMaleBox.getText().matches("[0-9]+")))) {
+            GUI.errorBox("Error, enter valid # for adult males", "error");
         }
-        if (GUI.adultFemaleBox.getText().isEmpty()) {
-            GUI.errorBox("Error, enter valid # for adultFemaleNumbers", "error");
+        if (GUI.adultFemaleBox.getText().isEmpty() || (!(GUI.adultFemaleBox.getText().matches("[0-9]+")))) {
+            GUI.errorBox("Error, enter valid # for adult females", "error");
         }
-        if (GUI.under8Box.getText().isEmpty()) {
-            GUI.errorBox("Error, enter valid # for adultUnder8Numbers", "error");
+        if (GUI.under8Box.getText().isEmpty() || (!(GUI.under8Box.getText().matches("[0-9]+")))) {
+            GUI.errorBox("Error, enter valid # for children under 8", "error");
         }
-        if (GUI.over8Box.getText().isEmpty()) {
-            GUI.errorBox("Error, enter valid # for adultOver8Numbers", "error");
+        if (GUI.over8Box.getText().isEmpty() || (!(GUI.over8Box.getText().matches("[0-9]+")))) {
+            GUI.errorBox("Error, enter valid # for children over 8", "error");
+        }
+        
+        String postCode = GUI.postCodeBox.getText().replaceAll("[^a-zA-Z0-9]", "");
+        postCode = postCode.toUpperCase();
+        if (!(postCode.matches("^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$"))){
+            GUI.postCodeError("Invalid Postal Code", "Error");
+            decrement();
+            return;
         }
 
         ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText().trim()),
@@ -41,10 +49,10 @@ public class Order {
         try {
             FileWriter fileWriter = new FileWriter("Finalized Hamper Order.txt", true);
             if (GUI.mobReqBox.isSelected() == true) {
+                    fileWriter.append(
+                            "Mobility Accomodations Requested, Hamper will be delivered to the address associated with the Postal Code\n");
+                    fileWriter.append("Your Postal Code: " + postCode + "\n");
 
-                fileWriter.append(
-                        "Mobility Accomodations Requested, Hamper will be delivered to the address associated with the Postal Code\n");
-                fileWriter.append("Your Postal Code: " + GUI.postCodeBox.getText().trim() + "\n");
             }
             fileWriter.append("Original Request" + "\n");
             fileWriter.append("Hamper " + counter + ": " + cList.getClientString() + "\n\n");
@@ -54,6 +62,7 @@ public class Order {
             fList.removeFromDatabase(hamper.getItemList());
             System.out.println(counter);
             Order.increment();
+            GUI.successBox("Hamper added Successfully", "Addition Successful");
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException ioException) {
@@ -69,24 +78,32 @@ public class Order {
         return counter;
     }
 
-    public static synchronized void decrement(){
+    public static synchronized void decrement() {
         counter--;
     }
 
     public void addFirstOrder() throws InsufficientFoodException, InsufficientStockException {
 
-        if (GUI.adultMaleBox.getText().isEmpty()) {
-            GUI.errorBox("Error, enter valid # for adultMaleNumbers", "error");
+        if (GUI.adultMaleBox.getText().isEmpty() || (!(GUI.adultMaleBox.getText().matches("[0-9]+")))) {
+            GUI.errorBox("Error, enter valid # for adult males", "error");
         }
-        if (GUI.adultFemaleBox.getText().isEmpty()) {
-            GUI.errorBox("Error, enter valid # for adultFemaleNumbers", "error");
+        if (GUI.adultFemaleBox.getText().isEmpty() || (!(GUI.adultFemaleBox.getText().matches("[0-9]+")))) {
+            GUI.errorBox("Error, enter valid # for adult females", "error");
         }
-        if (GUI.under8Box.getText().isEmpty()) {
-            GUI.errorBox("Error, enter valid # for adultUnder8Numbers", "error");
+        if (GUI.under8Box.getText().isEmpty() || (!(GUI.under8Box.getText().matches("[0-9]+")))) {
+            GUI.errorBox("Error, enter valid # for children under 8", "error");
         }
-        if (GUI.over8Box.getText().isEmpty()) {
-            GUI.errorBox("Error, enter valid # for adultOver8Numbers", "error");
+        if (GUI.over8Box.getText().isEmpty() || (!(GUI.over8Box.getText().matches("[0-9]+")))) {
+            GUI.errorBox("Error, enter valid # for children over 8", "error");
         }
+        String postCode = GUI.postCodeBox.getText().replaceAll("[^a-zA-Z0-9]", "");
+        postCode = postCode.toUpperCase();
+        if (!(postCode.matches("^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$"))){
+            GUI.postCodeError("Invalid Postal Code", "Error");
+            decrement();
+            return;
+        }
+
 
         ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText().trim()),
                 Integer.parseInt(GUI.adultFemaleBox.getText().trim()), Integer.parseInt(GUI.under8Box.getText().trim()),
@@ -106,16 +123,17 @@ public class Order {
             LocalDateTime now = LocalDateTime.now();
             headerWriter.append("Date: " + today.format(now) + "\n" + "\n");
             if (GUI.mobReqBox.isSelected() == true) {
+                    headerWriter.append(
+                            "Mobility Accomodations Requested, Hamper will be delivered to the address associated with the Postal Code\n");
+                    headerWriter.append("Your Postal Code: " + postCode + "\n");
 
-                headerWriter.append(
-                        "Mobility Accomodations Requested, Hamper will be delivered to the address associated with the Postal Code\n");
-                headerWriter.append("Your Postal Code: " + GUI.postCodeBox.getText().trim() + "\n");
             }
             headerWriter.append("Original Request" + "\n");
             headerWriter.append("Hamper " + hamperNumber + ": " + cList.getClientString() + "\n\n");
             headerWriter.append("Hamper " + hamperNumber + " Items:\n");
             headerWriter.append(hamper.createOrderFormat() + "\n\n");
             fList.removeFromDatabase(hamper.getItemList());
+            GUI.successBox("Hamper added Successfully", "Addition Successful");
             headerWriter.flush();
             headerWriter.close();
         } catch (IOException ioException) {
