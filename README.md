@@ -1,5 +1,7 @@
 # ENSF 409 Project - Group #7
 
+![hamper](http://loveyourgut.com/wp-content/uploads/imagesCAGT4VWB.jpg)
+
 The goal of this project was as follows (taken directly from the Project Handout):\
 • Design and document an object-oriented Java application \
 • Connect to and import data from a given database\
