@@ -27,4 +27,4 @@ Zohaib Ashfaq
 
 ## Run GUI
 
-The program is run through the GUI file and the output of the hampers is written into "Finalized Hamper Order.txt"
+The program is run through the GUI.java file when compiled and the output of the hampers is written into "Finalized Hamper Order.txt"
