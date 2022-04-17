@@ -63,7 +63,7 @@ public class OrderTest {
 
     @Test
     public void testGetCounter() {
-        int expectedNumber = 2;
+        int expectedNumber = 3;
         assertEquals(expectedNumber, Order.getCounter());
     }
 
