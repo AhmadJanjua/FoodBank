@@ -6,6 +6,7 @@ package edu.ucalgary.ensf409;
 @since 1.0
 */
 import java.io.File;
+import java.io.FileWriter;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +15,13 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class GUI extends JPanel {
+
+/**
+ * THIS FILE IS USED ONLY FOR MOCKITO PURPOSES TO MAKE TESTING MORE STREAMLINED, OTHERWISE IT IS ALMOST IDENTICAL TO GUI.java
+ */
+
+
+public class GUIOrderTestHelper extends JPanel {
     public static JLabel hamperCreatorLabel;
     public static JLabel nameLabel;
     public static JTextField name;
@@ -34,7 +41,7 @@ public class GUI extends JPanel {
     public static JButton exitButton;
     public static int counting;
 
-    public GUI() {
+    public GUIOrderTestHelper() {
         initComponents();
 
     }
@@ -56,38 +63,48 @@ public class GUI extends JPanel {
 
     class ClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Order order = new Order();
-            if (counting <= 0) {
-                if (e.getSource() == continueHamperButton) {
-                    
-                    try {
-                        order.addFirstOrder();
-
-                    } catch (InsufficientFoodException e2) {
-                        e2.printStackTrace();
-                        Order.decrement();
-                    } catch (InsufficientStockException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-                counting++;
-            } else {
-
-                if (e.getSource() == continueHamperButton) {
-                    try {
-                        order.orderCreation();
+            try {
+                FileWriter fileWriter = new FileWriter("Finalized Hamper Order.txt", true);
+                ClientList cList = new ClientList(Integer.parseInt(GUIOrderTestHelper.adultMaleBox.getText().trim()),
+                    Integer.parseInt(GUIOrderTestHelper.adultFemaleBox.getText().trim()), Integer.parseInt(GUIOrderTestHelper.under8Box.getText().trim()),
+                    Integer.parseInt(GUIOrderTestHelper.over8Box.getText().trim()), GUIOrderTestHelper.mobReqBox.isSelected());
+                FoodList fList = new FoodList();
+                Hamper hamper = new Hamper(cList, fList);
+                OrderTestHelper order = new OrderTestHelper(fileWriter, cList, fList, hamper);
+                if (counting <= 0) {
+                    if (e.getSource() == continueHamperButton) {
                         
-                    } catch (InsufficientFoodException e1) {
-                        e1.printStackTrace();
-                    } catch (InsufficientStockException e1) {
-                        e1.printStackTrace();
+                        try {
+                            order.addFirstOrder();
+    
+                        } catch (InsufficientFoodException e2) {
+                            e2.printStackTrace();
+                            Order.decrement();
+                        } catch (InsufficientStockException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                     counting++;
+                } else {
+    
+                    if (e.getSource() == continueHamperButton) {
+                        try {
+                            order.orderCreation();
+                            
+                        } catch (InsufficientFoodException e1) {
+                            e1.printStackTrace();
+                        } catch (InsufficientStockException e1) {
+                            e1.printStackTrace();
+                        }
+                        counting++;
+                        
+                    }
                     
-                }
-                
-            }name.setEditable(false);
-        }
+                }name.setEditable(false);
+            } catch (Exception ex) {
+                return;
+            }
+            }
     }
 
     class ClickListenerTwo implements ActionListener {
@@ -119,7 +136,7 @@ public class GUI extends JPanel {
 
     class PostCodeBoxListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if (e.getSource() == GUI.mobReqBox) {
+            if (e.getSource() == GUIOrderTestHelper.mobReqBox) {
                 postCodeBox.setEditable(true);
             }
             if (!(mobReqBox.isSelected())) {
@@ -185,9 +202,9 @@ public class GUI extends JPanel {
 
         File delete = new File("Finalized Hamper Order.txt");
         delete.delete();
-        JFrame frame = new JFrame("GUI");
+        JFrame frame = new JFrame("GUIOrderTestHelper");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(new GUI());
+        frame.getContentPane().add(new GUIOrderTestHelper());
         frame.pack();
         frame.setVisible(true);
 

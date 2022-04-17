@@ -20,7 +20,7 @@ import org.junit.Test;
  */
 public class OrderTest {
 
-    private Order mockOrder;
+    private OrderTestHelper mockOrder;
     private FileWriter mockFileWriter;
     private ClientList mockClientList;
     private FoodList mockFoodList;
@@ -32,17 +32,17 @@ public class OrderTest {
         mockClientList = mock(ClientList.class);
         mockFoodList = mock(FoodList.class);
         mockHamper = mock(Hamper.class);
-        mockOrder = new Order(mockFileWriter, mockClientList, mockFoodList, mockHamper);
+        mockOrder = new OrderTestHelper(mockFileWriter, mockClientList, mockFoodList, mockHamper);
     }
 
     @Test
     public void testAddFirstOrder() {
-        GUI gui = new GUI();
-        GUI.adultMaleBox.setText("1");
-        GUI.adultFemaleBox.setText("1");
-        GUI.over8Box.setText("1");
-        GUI.under8Box.setText("1");
-        GUI.postCodeBox.setText("T3R 1S4");
+        GUIOrderTestHelper gui = new GUIOrderTestHelper();
+        GUIOrderTestHelper.adultMaleBox.setText("1");
+        GUIOrderTestHelper.adultFemaleBox.setText("1");
+        GUIOrderTestHelper.over8Box.setText("1");
+        GUIOrderTestHelper.under8Box.setText("1");
+        GUIOrderTestHelper.postCodeBox.setText("T3R 1S4");
         try {
             mockOrder.addFirstOrder();
             verify(mockFileWriter, atLeastOnce()).append(any());
@@ -56,33 +56,33 @@ public class OrderTest {
 
     @Test
     public void testDecrement() {
-        int expectedNumber = Order.getCounter() - 1;
-        Order.decrement();
-        assertEquals(expectedNumber, Order.getCounter());
+        int expectedNumber = OrderTestHelper.getCounter() - 1;
+        OrderTestHelper.decrement();
+        assertEquals(expectedNumber, OrderTestHelper.getCounter());
     }
 
     @Test
     public void testGetCounter() {
         int expectedNumber = 3;
-        assertEquals(expectedNumber, Order.getCounter());
+        assertEquals(expectedNumber, OrderTestHelper.getCounter());
     }
 
     @Test
     public void testIncrement() {
-        int expectedNumber = Order.getCounter() + 1;
-        Order.increment();
-        assertEquals(expectedNumber, Order.getCounter());
+        int expectedNumber = OrderTestHelper.getCounter() + 1;
+        OrderTestHelper.increment();
+        assertEquals(expectedNumber, OrderTestHelper.getCounter());
        
     }
 
     @Test
     public void testOrderCreation() {
-        GUI gui = new GUI();
-        GUI.adultMaleBox.setText("1");
-        GUI.adultFemaleBox.setText("1");
-        GUI.over8Box.setText("1");
-        GUI.under8Box.setText("1");
-        GUI.postCodeBox.setText("T3R 1S4");
+        GUIOrderTestHelper gui = new GUIOrderTestHelper();
+        GUIOrderTestHelper.adultMaleBox.setText("1");
+        GUIOrderTestHelper.adultFemaleBox.setText("1");
+        GUIOrderTestHelper.over8Box.setText("1");
+        GUIOrderTestHelper.under8Box.setText("1");
+        GUIOrderTestHelper.postCodeBox.setText("T3R 1S4");
         try {
             mockOrder.orderCreation();
             verify(mockFileWriter, atLeastOnce()).append(any());

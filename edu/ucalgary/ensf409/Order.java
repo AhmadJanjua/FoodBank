@@ -2,7 +2,7 @@ package edu.ucalgary.ensf409;
 
 /**
 @author Pedro Ghodsi
-@version 2.1
+@version 2.0
 @since 1.0
 */
 import java.time.format.DateTimeFormatter;
@@ -13,18 +13,6 @@ import java.io.IOException;
 public class Order {
 
     private static int counter = 2; // Counter used to track hamper number past hamper number 1
-    private FileWriter fileWriter;
-    private ClientList cList;
-    private FoodList fList;
-    private Hamper hamper;
-
-    public Order(FileWriter fileWriter, ClientList cList, FoodList fList, Hamper hamper) {
-       this.fileWriter = fileWriter; 
-       this.cList = cList;
-       this.fList = fList;
-       this.hamper = hamper;
-    }
-
     /**
      * 
      * @throws InsufficientFoodException when upon attempting to create a hamper, there is an insufficient amount of food stored in the database to create the hamper
@@ -51,8 +39,18 @@ public class Order {
             decrement();
             return;
         }
+        //clientlist inserted with arguments from gui
+        ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText().trim()),
+                Integer.parseInt(GUI.adultFemaleBox.getText().trim()), Integer.parseInt(GUI.under8Box.getText().trim()),
+                Integer.parseInt(GUI.over8Box.getText().trim()), GUI.mobReqBox.isSelected());
+        //creation of available food from the database 
+                FoodList fList = new FoodList();
         fList.fillFromDatabase();
+        //calling on hamper to create required hamper based off of inputs from GUI
+        Hamper hamper = new Hamper(cList, fList);
+        //write hamper to file
         try {
+            FileWriter fileWriter = new FileWriter("Finalized Hamper Order.txt", true);
             //GUI Checkbox for postalcode existence
             if (GUI.mobReqBox.isSelected() == true) {
                     fileWriter.append(
@@ -118,29 +116,36 @@ public class Order {
             return;
         }
 
+
+        ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText().trim()),
+                Integer.parseInt(GUI.adultFemaleBox.getText().trim()), Integer.parseInt(GUI.under8Box.getText().trim()),
+                Integer.parseInt(GUI.over8Box.getText().trim()), GUI.mobReqBox.isSelected());
+        FoodList fList = new FoodList();
         int hamperNumber = 1; //constant order number always for order #1
         fList.fillFromDatabase();
+        Hamper hamper = new Hamper(cList, fList);
 
         String nameInput = "Name:" + GUI.name.getText(); // Name input from GUI ONLY ON FIRST ORDER
         try {
-            fileWriter.append(nameInput + "\n");
+            FileWriter headerWriter = new FileWriter("Finalized Hamper Order.txt", true);
+            headerWriter.append(nameInput + "\n");
             DateTimeFormatter today = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"); //time of day, only for first order
             LocalDateTime now = LocalDateTime.now();
-            fileWriter.append("Date: " + today.format(now) + "\n" + "\n");
+            headerWriter.append("Date: " + today.format(now) + "\n" + "\n");
             if (GUI.mobReqBox.isSelected() == true) {
-                    fileWriter.append(
+                    headerWriter.append(
                             "Mobility Accomodations Requested, Hamper will be delivered to the address associated with the Postal Code\n");
-                    fileWriter.append("Your Postal Code: " + postCode + "\n");
+                    headerWriter.append("Your Postal Code: " + postCode + "\n");
 
             }
-            fileWriter.append("Original Request" + "\n");
-            fileWriter.append("Hamper " + hamperNumber + ": " + cList.getClientString() + "\n\n");
-            fileWriter.append("Hamper " + hamperNumber + " Items:\n");
-            fileWriter.append(hamper.createOrderFormat() + "\n\n");
+            headerWriter.append("Original Request" + "\n");
+            headerWriter.append("Hamper " + hamperNumber + ": " + cList.getClientString() + "\n\n");
+            headerWriter.append("Hamper " + hamperNumber + " Items:\n");
+            headerWriter.append(hamper.createOrderFormat() + "\n\n");
             fList.removeFromDatabase(hamper.getItemList());
             GUI.successBox("Hamper added Successfully", "Addition Successful");
-            fileWriter.flush();
-            fileWriter.close();
+            headerWriter.flush();
+            headerWriter.close();
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
