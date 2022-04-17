@@ -13,9 +13,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * ENSF 409 Final Project Group 7
- * @author Ahmad Janjua, Pedro Ghodsi, Zohaib Ashfaq, Farica Mago
- * @version 1.1
+ * ENSF 409 Final Project Group 7 - OrderTest.java
+ * @author Pedro Ghodsi
+ * @version 1.2
  * @since 1.0
  */
 public class OrderTest {
