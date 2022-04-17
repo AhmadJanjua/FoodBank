@@ -12,10 +12,14 @@ import java.io.IOException;
 
 public class Order {
 
-    private static int counter = 2;
-
+    private static int counter = 2; // Counter used to track hamper number past hamper number 1
+    /**
+     * 
+     * @throws InsufficientFoodException when upon attempting to create a hamper, there is an insufficient amount of food stored in the database to create the hamper
+     * @throws InsufficientStockException when attempting to remove items from a hamper, there is an error; cannot be caused without user error while setting up the database/not refreshing it
+     */
     public void orderCreation() throws InsufficientFoodException, InsufficientStockException {
-
+        //checkers to see if GUI inputs are valid
         if (GUI.adultMaleBox.getText().isEmpty() || (!(GUI.adultMaleBox.getText().matches("[0-9]+")))) {
             GUI.errorBox("Error, enter valid # for adult males", "error");
         }
@@ -28,7 +32,6 @@ public class Order {
         if (GUI.over8Box.getText().isEmpty() || (!(GUI.over8Box.getText().matches("[0-9]+")))) {
             GUI.errorBox("Error, enter valid # for children over 8", "error");
         }
-        
         String postCode = GUI.postCodeBox.getText().replaceAll("[^a-zA-Z0-9]", "");
         postCode = postCode.toUpperCase();
         if (!(postCode.matches("^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$"))){
@@ -36,52 +39,62 @@ public class Order {
             decrement();
             return;
         }
-
+        //clientlist inserted with arguments from gui
         ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText().trim()),
                 Integer.parseInt(GUI.adultFemaleBox.getText().trim()), Integer.parseInt(GUI.under8Box.getText().trim()),
                 Integer.parseInt(GUI.over8Box.getText().trim()), GUI.mobReqBox.isSelected());
-        // System.out.println(cList.getClientString()); ADDED to Check if it prints out
-        // the clientlist properly
-        FoodList fList = new FoodList();
+        //creation of available food from the database 
+                FoodList fList = new FoodList();
         fList.fillFromDatabase();
+        //calling on hamper to create required hamper based off of inputs from GUI
         Hamper hamper = new Hamper(cList, fList);
-        // System.out.println(hamper.createOrderFormat());
+        //write hamper to file
         try {
             FileWriter fileWriter = new FileWriter("Finalized Hamper Order.txt", true);
+            //GUI Checkbox for postalcode existence
             if (GUI.mobReqBox.isSelected() == true) {
                     fileWriter.append(
                             "Mobility Accomodations Requested, Hamper will be delivered to the address associated with the Postal Code\n");
-                    fileWriter.append("Your Postal Code: " + postCode + "\n");
+                    fileWriter.append("Your Postal Code: " + postCode + "\n"); //If postcode,then allow delivery
 
             }
+            //more output text formatting
             fileWriter.append("Original Request" + "\n");
             fileWriter.append("Hamper " + counter + ": " + cList.getClientString() + "\n\n");
             fileWriter.append("Hamper " + counter + " Items:\n");
-            fileWriter.append(hamper.createOrderFormat() + "\n\n");
+            fileWriter.append(hamper.createOrderFormat() + "\n\n"); //create order format for hamper items exclusively
             /////////////////////////////////////////////////////
-            fList.removeFromDatabase(hamper.getItemList());
-            System.out.println(counter);
+            fList.removeFromDatabase(hamper.getItemList()); //database update
             Order.increment();
-            GUI.successBox("Hamper added Successfully", "Addition Successful");
+            GUI.successBox("Hamper added Successfully", "Addition Successful"); //success prompt
             fileWriter.flush();
-            fileWriter.close();
+            fileWriter.close(); //close writer
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }
 
     public static void increment() {
-        counter++;
+        counter++; //accessible increment for counter
     }
 
     public static int getCounter() {
-        return counter;
+        return counter; //getter
     }
 
     public static void decrement() {
-        counter--;
+        counter--; //accessible decrement for counter
+    }
     }
 
+
+    /**
+     * 
+     * @throws InsufficientFoodException orderCreation() same
+     * @throws InsufficientStockException orderCreation() same
+     */
+
+     // Lack of comments, refer to orderCreation() for details on some parts
     public void addFirstOrder() throws InsufficientFoodException, InsufficientStockException {
 
         if (GUI.adultMaleBox.getText().isEmpty() || (!(GUI.adultMaleBox.getText().matches("[0-9]+")))) {
@@ -108,18 +121,16 @@ public class Order {
         ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText().trim()),
                 Integer.parseInt(GUI.adultFemaleBox.getText().trim()), Integer.parseInt(GUI.under8Box.getText().trim()),
                 Integer.parseInt(GUI.over8Box.getText().trim()), GUI.mobReqBox.isSelected());
-        // System.out.println(cList.getClientString()); ADDED to Check if it prints out
-        // the clientlist properly
         FoodList fList = new FoodList();
-        int hamperNumber = 1;
+        int hamperNumber = 1; //constant order number always for order #1
         fList.fillFromDatabase();
         Hamper hamper = new Hamper(cList, fList);
 
-        String nameInput = "Name:" + GUI.name.getText(); // to be fixed with gui later
+        String nameInput = "Name:" + GUI.name.getText(); // Name input from GUI ONLY ON FIRST ORDER
         try {
             FileWriter headerWriter = new FileWriter("Finalized Hamper Order.txt", true);
             headerWriter.append(nameInput + "\n");
-            DateTimeFormatter today = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            DateTimeFormatter today = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"); //time of day, only for first order
             LocalDateTime now = LocalDateTime.now();
             headerWriter.append("Date: " + today.format(now) + "\n" + "\n");
             if (GUI.mobReqBox.isSelected() == true) {
