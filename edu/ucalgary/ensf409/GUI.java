@@ -1,11 +1,11 @@
 package edu.ucalgary.ensf409;
-
 /**
 @author Pedro Ghodsi
 @version 1.9
 @since 1.0
 */
 import java.io.File;
+import java.io.FileWriter;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -56,38 +56,48 @@ public class GUI extends JPanel {
 
     class ClickListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Order order = new Order();
-            if (counting <= 0) {
-                if (e.getSource() == continueHamperButton) {
-                    
-                    try {
-                        order.addFirstOrder();
-
-                    } catch (InsufficientFoodException e2) {
-                        e2.printStackTrace();
-                        Order.decrement();
-                    } catch (InsufficientStockException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-                counting++;
-            } else {
-
-                if (e.getSource() == continueHamperButton) {
-                    try {
-                        order.orderCreation();
+            try {
+                FileWriter fileWriter = new FileWriter("Finalized Hamper Order.txt", true);
+                ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText().trim()),
+                    Integer.parseInt(GUI.adultFemaleBox.getText().trim()), Integer.parseInt(GUI.under8Box.getText().trim()),
+                    Integer.parseInt(GUI.over8Box.getText().trim()), GUI.mobReqBox.isSelected());
+                FoodList fList = new FoodList();
+                Hamper hamper = new Hamper(cList, fList);
+                Order order = new Order(fileWriter, cList, fList, hamper);
+                if (counting <= 0) {
+                    if (e.getSource() == continueHamperButton) {
                         
-                    } catch (InsufficientFoodException e1) {
-                        e1.printStackTrace();
-                    } catch (InsufficientStockException e1) {
-                        e1.printStackTrace();
+                        try {
+                            order.addFirstOrder();
+    
+                        } catch (InsufficientFoodException e2) {
+                            e2.printStackTrace();
+                            Order.decrement();
+                        } catch (InsufficientStockException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                     counting++;
+                } else {
+    
+                    if (e.getSource() == continueHamperButton) {
+                        try {
+                            order.orderCreation();
+                            
+                        } catch (InsufficientFoodException e1) {
+                            e1.printStackTrace();
+                        } catch (InsufficientStockException e1) {
+                            e1.printStackTrace();
+                        }
+                        counting++;
+                        
+                    }
                     
-                }
-                
-            }name.setEditable(false);
-        }
+                }name.setEditable(false);
+            } catch (Exception ex) {
+                return;
+            }
+            }
     }
 
     class ClickListenerTwo implements ActionListener {
