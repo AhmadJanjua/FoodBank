@@ -14,8 +14,8 @@ public class InsufficientStockExceptionTest {
         @Test
         public void InsufficientStockExceptionTest() throws CustomeException {
             if (super(errormessage)) {
-                throw new CustomeException(<"There are not enough food items to satisfy that order, try again.",
-                "Not Enough Food">)
+                throw new CustomeException(<"There is not enough stock to satisfy that order, try again.",
+                "Not Enough Stock">)
             }
         }
 
