@@ -16,6 +16,7 @@ Through creating this programs Unit Tests, for Order.java in particular; Mockito
 
 In "Referenced Libraries", Mockito referenced library can be found, as well as JUnit referenced library.\
 Implementation would have been done through Maven to address any dependancies, however this was ideal given time constraints.
+To run these tests, uncomment OrderTest.java and all TestHelper.java files, while referencing required libraries in the folder.
 
 Implementation of other class Unit Tests have also been left out commented in a preliminary state, in the interest of time and the due date of the Project, which leaves more time for our members to commit themselves to studying for finals.
 
