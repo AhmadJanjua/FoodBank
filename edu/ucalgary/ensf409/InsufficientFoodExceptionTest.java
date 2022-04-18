@@ -1,4 +1,4 @@
-package edu.ucalgary.ensf409;
+/*package edu.ucalgary.ensf409;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * @version 1.1
  * @since 1.0
  */
-
+/*
 public class InsufficientFoodExceptionTest {
     @Test
     public void InsufficientFoodExceptionTest() throws CustomeException {
@@ -21,3 +21,5 @@ public class InsufficientFoodExceptionTest {
 
 
 }
+
+*/

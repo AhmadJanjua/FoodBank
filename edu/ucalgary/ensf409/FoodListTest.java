@@ -4,14 +4,14 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import java.util.HashMap;
-
+/*
 
 /**
  * ENSF 409 Final Project Group 7
  * @author Ahmad Janjua, Pedro Ghodsi, Zohaib Ashfaq, Farica Mago
  * @version 1.1
  * @since 1.0
- */
+ *//*
 public class FoodListTest {
     
     @Test
@@ -24,11 +24,11 @@ public class FoodListTest {
         String result = getColumn();
         assertEquals(testData.keySet(), new HashSet<>(Arrays.asList(result.split(", "))));
     }
-
+    */
     /**
      * Calling the constructor with an empty ArrayList of food
      * should cause the program to throw an illegal argument exception
-     */
+     *//*
       @Test
       public void testEmptyListConstructor_FoodList() {
           boolean exceptionThrown = false;
@@ -44,7 +44,7 @@ public class FoodListTest {
 
       /**
        * Testing to see if the setter in FoodList throws an exception if an empty ArrayList of food is passed
-       */
+       *//*
       @Test
       public void testEmptyListSetter_FoodList() {
           boolean exceptionThrown = false;
@@ -65,7 +65,7 @@ public class FoodListTest {
 
       /**
        * Tests the FoodList constructor that takes in Food object arguement
-      */
+      *//*
       @Test
       public void testFoodConstructor_FoodList() {
           //Instantiate Food object
@@ -80,7 +80,7 @@ public class FoodListTest {
 
       /**
        * Tests the FoodList constructor that takes in FoodList object arguement
-       */
+       *//*
       @Test
       public void testFoodListConstructor_FoodList() {
           //Instantiate Food object
@@ -94,7 +94,7 @@ public class FoodListTest {
       }
       /**
        * Tests the setter in FoodList
-       */
+       *//*
       @Test
       public void testSetFoodlist_FoodList() {
           //Instantiate Food object
@@ -110,7 +110,7 @@ public class FoodListTest {
       }
       /**
        * Test the getter in the FoodList class to see if the return type is correct
-       */
+       *//*
       @Test
       public void testGetFoodlist_FoodList() {
           //Instantiate Food objects
@@ -126,7 +126,7 @@ public class FoodListTest {
       }
       /**
        * Testing to if addFood method successfully adds another Food object
-       */
+       *//*
       @Test
       public void testAddFood_FoodList() {
           //Instantiate Food object
@@ -147,7 +147,7 @@ public class FoodListTest {
 
       /**
        * Test to see if the removeFood method successfully removes Food object
-       */
+       *//*
       @Test
       public void testRemoveFood_FoodList() {
           //Instantiate Food object
@@ -170,4 +170,4 @@ public class FoodListTest {
 
   
 
-}
+}*/
