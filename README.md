@@ -10,17 +10,6 @@ The goal of this project was as follows (taken directly from the Project Handout
 
 These goals were met by creating a program that would create food hampers based off of nutritional needs for a group with varying parameters; utilizing a database and GUI to complete said program.
 
-## A word about JUnit usage + Mockito
-
-Through creating this programs Unit Tests, for Order.java in particular; Mockito was used as opposed to JUnit in order to mock the database connection rather than actually connecting to the database to carry out tests. It is not convention to use databases directly for Unit Tests, as was discovered through research.\
-
-In "Referenced Libraries", Mockito referenced library can be found, as well as JUnit referenced library.\
-Implementation would have been done through Maven to address any dependancies, however this was ideal given time constraints.
-To run these tests, uncomment OrderTest.java and all TestHelper.java files, while referencing required libraries in the folder.
-
-Implementation of other class Unit Tests have also been left out commented in a preliminary state, in the interest of time and the due date of the Project, which leaves more time for our members to commit themselves to studying for finals.
-
-
 ## Contributors
 
 Ahmad Janjua\
