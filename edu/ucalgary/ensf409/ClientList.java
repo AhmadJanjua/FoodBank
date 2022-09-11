@@ -1,131 +1,71 @@
 package edu.ucalgary.ensf409;
 /**
-@author Ahmad Janjua, Zohaib
-@version 1.4
+@author Ahmad Janjua
+@version 1.5
 @since 1.0
 */
-import java.util.*;
-import java.sql.*;
 
 /*
-ClientList Class takes in a collection of clients and gets their requirement from the database
-from the database it then gets gathers info related to their daily needs.
- */
+The class the collects information about the various types of clients and returns
+their daily caloric needs.
+*/
 
 public class ClientList {
-
-    //Fields to connect to the database
-    private final String DBURL = "jdbc:mysql://localhost:3306/food_inventory";
-    private final String USERNAME = "student";
-    private final String PASSWORD = "ensf";    
-    private Connection dbConnect;
-    private ResultSet results;
-    public void close() {
-        try {
-            results.close();    
-            dbConnect.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-    //Fields for the ClientList
-    private int numMale, numFemale, under, over;
-    private ArrayList<Client> clients = new ArrayList<>();
-    private double totalCalories= 0;
-    private double totalGrainCalories = 0;
-    private double totalFVCalories = 0;
-    private double totalProteinCalories = 0;
-    private double totalOtherCalories = 0;
-    private boolean isMobilityStruggled = false;    
+    // Number of clients in each category
+    private final int
+            numMale,
+            numFemale,
+            numOver8,
+            numUnder8;
+    //Total calories for all the clients in the group.
+    private double
+            totalCalories,
+            totalGrains,
+            totalFruitVeg,
+            totalProtein,
+            totalOthers;
+    private boolean mobilityAccommodation = false;
+    
     /**
      * Constructor:
      * Generates a list of the requirements for the clients in the clientList
      * and gets their needs from the database.
      * @param numMale the number of male clients
      * @param numFemale number of female clients
-     * @param under number of children under 8
-     * @param over number of children over 8
-     * @param isMobilityStruggled Do the clients need accomodation
+     * @param numUnder8 number of children under 8
+     * @param numOver8 number of children over 8
+     * @param mobilityAccommodation Do the clients need accomodation
      */
-    public ClientList(int numMale, int numFemale, int under, int over, boolean isMobilityStruggled) {
+    public ClientList(int numMale, int numFemale, int numOver8, int numUnder8, boolean mobilityAccommodation) {
         this.numMale = numMale;
         this.numFemale = numFemale;
-        this.over = over;
-        this.under = under;
-        
-        this.isMobilityStruggled = isMobilityStruggled;
-        try {
-            dbConnect = DriverManager.getConnection(this.DBURL, this.USERNAME, this.PASSWORD);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        String query = "SELECT * from daily_client_needs";
+        this.numOver8 = numOver8;
+        this.numUnder8 = numUnder8;
+        this.mobilityAccommodation = mobilityAccommodation;
+        setNutrientNeeds();
+    }
 
-        try {
-            Statement stmt = dbConnect.createStatement();
-            results = stmt.executeQuery(query);
-            while (results.next()) {
-                String client = results.getString("Client");
-                int wholeGrains = results.getInt("WholeGrains");
-                int fruitVeggies = results.getInt("FruitVeggies");
-                int protein = results.getInt("Protein");
-                int other = results.getInt("Other");
-                int calories = results.getInt("Calories");
-                switch (client) {
-                    case "Adult Male":
-                        for(int i=0; i<numMale;i++){
-                            Client temp = new Client(client, wholeGrains, fruitVeggies, protein, other, calories);
-                            clients.add(temp);
-                        }
-                        break;
-                    case "Adult Female":
-                        for(int i=0; i<numFemale;i++){
-                            Client temp = new Client(client, wholeGrains, fruitVeggies, protein, other, calories);
-                            clients.add(temp);
-                        }
-                        break;
-                    case "Child over 8":
-                        for(int i=0; i<over;i++){
-                            Client temp = new Client(client, wholeGrains, fruitVeggies, protein, other, calories);
-                            clients.add(temp);
-                        }
-                        break;
-                    case "Child under 8":
-                        for(int i=0; i<under;i++){
-                            Client temp = new Client(client, wholeGrains, fruitVeggies, protein, other, calories);
-                            clients.add(temp);
-                        }
-                        break;
-                }
-            }
-            stmt.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        this.setNutrientNeeds();
+    // Private helper function to set the totals calories in each category to zero,
+    // then call other add calorie function to get total calories.
+    private void setNutrientNeeds() {
+        totalCalories = totalGrains = totalFruitVeg = totalProtein = totalOthers = 0;
+        addCalories(numMale, Client.ADULT_MALE);
+        addCalories(numFemale, Client.ADULT_FEMALE);
+        addCalories(numOver8, Client.CHILD_OVER_8);
+        addCalories(numUnder8, Client.CHILD_UNDER_8);
     }
-    /**
-     * Using the current client list it sets the needs of the nutrient needs
-     * of the clients
-     */
-    public void setNutrientNeeds() {
-        this.totalCalories = 0; 
-        this.totalGrainCalories = 0;
-        this.totalFVCalories = 0;
-        this.totalProteinCalories = 0;
-        this.totalOtherCalories = 0;
-        for(int i=0; i<clients.size(); i++){
-            Client tmp = clients.get(i);
-            this.totalCalories += tmp.getCalories(); 
-            this.totalGrainCalories += (0.01)*tmp.getGrainPercent()*tmp.getCalories();
-            this.totalFVCalories += (0.01)*tmp.getFVPercent()*tmp.getCalories();
-            this.totalProteinCalories += (0.01)*tmp.getProteinPercent()*tmp.getCalories();
-            this.totalOtherCalories += (0.01)*tmp.getOtherPercent()*tmp.getCalories();
-        }
+
+    // Private helper function that adds calories given the client number and type
+    private void addCalories(int num, Client dailyNeeds) {
+        totalCalories += num * dailyNeeds.CALORIES;
+        totalGrains += num * dailyNeeds.GRAIN;
+        totalFruitVeg += num * dailyNeeds.FRUIT_VEG;
+        totalProtein += num * dailyNeeds.PROTEIN;
+        totalOthers += num * dailyNeeds.OTHERS;
     }
+
     /**
-    * 
-    * @return A list of the clients by their type and quantity.
+    * @return A formatted list of the clients by their type and quantity.
     */
     public String getClientString() {
         String clientString = "";
@@ -135,66 +75,53 @@ public class ClientList {
         if(numFemale != 0){
             clientString += numFemale + " Adult Female, ";
         }
-        if(under != 0){
-            clientString += under + " Child under 8, ";
+        if(numUnder8 != 0){
+            clientString += numUnder8 + " Child under 8, ";
         }
-        if(over != 0){
-            clientString += over + " Child over 8, ";
+        if(numOver8 != 0){
+            clientString += numOver8 + " Child over 8, ";
         }
         return clientString.substring(0, clientString.length()-2);
     }
-    /**
-     * Removes a client that is specified
-     * @param client a valid client type. ie: "child under 8"
-     */
-    public void removeClient(String client) {
-        for(int i= 0; i<clients.size(); i++){
-            if(clients.get(i).getClientType().equals(client)){
-                clients.remove(i);
-                return;
-            }
-        }
-        this.setNutrientNeeds();
-    }
-    //Getters for fields
-    public ArrayList<Client> getClients() {
-        return clients;
-    }
-    public double getTotalGrainCalories() {
-        return totalGrainCalories;
-    }
-    public double getTotalFVCalories() {
-        return totalFVCalories;
-    }
-    public double getTotalProteinCalories() {
-        return totalProteinCalories;
-    }
-    public double getTotalOtherCalories() {
-        return totalOtherCalories;
-    }
-    public double getTotalCalories() {
-        return totalCalories;
-    }    public boolean isMobilityStruggled() {
-        return isMobilityStruggled;
-    }
-    //Setters for fields
-    public void setTotalGrainCalories(int totalGrainCalories) {
-        this.totalGrainCalories = totalGrainCalories;
-    }
-    public void setTotalFVCalories(int totalFVCalories) {
-        this.totalFVCalories = totalFVCalories;
-    }
-    public void setTotalProteinCalories(int totalProteinCalories) {
-        this.totalProteinCalories = totalProteinCalories;
-    }
-    public void setTotalOtherCalories(int totalOtherCalories) {
-        this.totalOtherCalories = totalOtherCalories;
-    }
-    public void setTotalCalories(int totalCalories) {
-        this.totalCalories = totalCalories;
-    }
-    public void setMobilityStruggled(boolean isMobilityStruggled) {
-        this.isMobilityStruggled = isMobilityStruggled;
+
+    // Getters for all private feilds
+    public int getNumMale() {
+        return numMale;
     }
 
+    public int getNumFemale() {
+        return numFemale;
+    }
+
+    public int getNumOver8() {
+        return numOver8;
+    }
+
+    public int getNumUnder8() {
+        return numUnder8;
+    }
+
+    public double getTotalCalories() {
+        return totalCalories;
+    }
+
+    public double getTotalGrains() {
+        return totalGrains;
+    }
+
+    public double getTotalFruitVeg() {
+        return totalFruitVeg;
+    }
+
+    public double getTotalProtein() {
+        return totalProtein;
+    }
+
+    public double getTotalOthers() {
+        return totalOthers;
+    }
+
+    public boolean isMobilityAccommodation() {
+        return mobilityAccommodation;
+    }
 }

@@ -44,8 +44,7 @@ public class Order {
                 Integer.parseInt(GUI.adultFemaleBox.getText().trim()), Integer.parseInt(GUI.under8Box.getText().trim()),
                 Integer.parseInt(GUI.over8Box.getText().trim()), GUI.mobReqBox.isSelected());
         //creation of available food from the database 
-                FoodList fList = new FoodList();
-        fList.fillFromDatabase();
+        FoodMap fList = new FoodMap();
         //calling on hamper to create required hamper based off of inputs from GUI
         Hamper hamper = new Hamper(cList, fList);
         //write hamper to file
@@ -64,6 +63,10 @@ public class Order {
             fileWriter.append("Hamper " + counter + " Items:\n");
             fileWriter.append(hamper.createOrderFormat() + "\n\n"); //create order format for hamper items exclusively
             /////////////////////////////////////////////////////
+            {
+                System.out.println(hamper.getTotalCalories());
+                System.out.println(hamper.getGrain()+hamper.getFv()+hamper.getProtein()+hamper.getOther());
+            }
             fList.removeFromDatabase(hamper.getItemList()); //database update
             Order.increment();
             GUI.successBox("Hamper added Successfully", "Addition Successful"); //success prompt
@@ -73,19 +76,6 @@ public class Order {
             ioException.printStackTrace();
         }
     }
-
-    public static void increment() {
-        counter++; //accessible increment for counter
-    }
-
-    public static int getCounter() {
-        return counter; //getter
-    }
-
-    public static void decrement() {
-        counter--; //accessible decrement for counter
-    }
-
 
     /**
      * 
@@ -116,13 +106,11 @@ public class Order {
             return;
         }
 
-
         ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText().trim()),
                 Integer.parseInt(GUI.adultFemaleBox.getText().trim()), Integer.parseInt(GUI.under8Box.getText().trim()),
                 Integer.parseInt(GUI.over8Box.getText().trim()), GUI.mobReqBox.isSelected());
-        FoodList fList = new FoodList();
+        FoodMap fList = new FoodMap();
         int hamperNumber = 1; //constant order number always for order #1
-        fList.fillFromDatabase();
         Hamper hamper = new Hamper(cList, fList);
 
         String nameInput = "Name:" + GUI.name.getText(); // Name input from GUI ONLY ON FIRST ORDER
@@ -136,18 +124,33 @@ public class Order {
                     headerWriter.append(
                             "Mobility Accomodations Requested, Hamper will be delivered to the address associated with the Postal Code\n");
                     headerWriter.append("Your Postal Code: " + postCode + "\n");
-
             }
             headerWriter.append("Original Request" + "\n");
             headerWriter.append("Hamper " + hamperNumber + ": " + cList.getClientString() + "\n\n");
             headerWriter.append("Hamper " + hamperNumber + " Items:\n");
             headerWriter.append(hamper.createOrderFormat() + "\n\n");
             fList.removeFromDatabase(hamper.getItemList());
+            {
+                System.out.println(hamper.getTotalCalories());
+                System.out.println(hamper.getGrain()+hamper.getFv()+hamper.getProtein()+hamper.getOther());
+            }
             GUI.successBox("Hamper added Successfully", "Addition Successful");
             headerWriter.flush();
             headerWriter.close();
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
+    }
+
+    public static void increment() {
+        counter++; //accessible increment for counter
+    }
+
+    public static int getCounter() {
+        return counter; //getter
+    }
+
+    public static void decrement() {
+        counter--; //accessible decrement for counter
     }
 }

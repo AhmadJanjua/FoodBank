@@ -1,88 +1,51 @@
 package edu.ucalgary.ensf409;
 /**
-@author Ahmad Janjua, Farica Mago
-@version 1.2
+@author Ahmad Janjua
+@version 1.3
 @since 1.0
 */
 
 /*
-Client class takes in info about the needs of specific clients and generate
-info that can be used to determine their needs.
+Client enum gathers all the info about the different client and
+stores it for easy access.
 */
 
-public class Client
+public enum Client
 {
-    private final String CLIENT_TYPE;
-    private static int counter = 1;
-    private int clientID;
-    private int percentGrain;
-    private int percentFV;
-    private int percentProtein;
-    private int percentOther;
-    private int calories;
+    // Different types of client. *ID gathered from sql data*
+    ADULT_MALE(1),
+    ADULT_FEMALE(2),
+    CHILD_OVER_8(3),
+    CHILD_UNDER_8(4);
 
-    /**
-    @param ID is the user name...
+    // Calories for each nutrition group.
+    final int CALORIES;
+    final double
+            GRAIN,
+            FRUIT_VEG,
+            PROTEIN,
+            OTHERS;
+
+    /*
+    * Constructor that gathers the data from the database,
+    * then closes the connection.
     */
-    public Client(String ID,int grain, int fruitFV, int protien,int others,int calories)
-    {
-        this.clientID = counter++;
-        this.CLIENT_TYPE = ID;
-        this.percentGrain = grain;
-        this.percentFV = fruitFV;
-        this.percentProtein = protien;
-        this.percentOther = others;
-        this.calories = calories;
-    }
+    Client(int id) {
+        var enum_connection = new DataBase();
+        double factor;
 
-    // getters
-    public String getClientType(){
-        return this.CLIENT_TYPE;
-    }
-    public int getGrainPercent()
-    {
-        return this.percentGrain;
-    }
-    public int getProteinPercent()
-    {
-        return this.percentProtein;
-    }
-    public int getFVPercent()
-    {
-        return this.percentFV;
-    }
-    public int getOtherPercent()
-    {
-        return this.percentOther;
-    }
-    public int getCalories()
-    {
-        return this.calories;
-    }
-    public int getclientID()
-    {
-        return this.clientID;
-    }
+        int[] clientNeeds = enum_connection.selectNeeds(id);
 
-    // setters
-    public void setGrainPercent(int grainPercent)
-    {
-        this.percentGrain = grainPercent;
-    }
-    public void setProteinPercent(int protienPercent)
-    {
-        this.percentProtein = protienPercent;
-    }
-    public void setFVPercent(int fvPercent)
-    {
-        this.percentFV = fvPercent;
-    }
-    public void setOtherPercent(int other)
-    {
-        this.percentOther = other;
-    }
-    public void setCalories(int calories)
-    {
-        this.calories = calories;
+        CALORIES = clientNeeds[4];
+
+        //Converts percentages given to calories
+        factor = (double) CALORIES/100;
+
+        GRAIN = clientNeeds[0]*factor;
+        FRUIT_VEG = clientNeeds[1]*factor;
+        PROTEIN = clientNeeds[2]*factor;
+        OTHERS = clientNeeds[3]*factor;
+
+        enum_connection.close();
     }
 }

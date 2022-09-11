@@ -1,7 +1,7 @@
 package edu.ucalgary.ensf409;
 /**
 @author Ahmad Janjua
-@version 1.2
+@version 1.3
 @since 1.0
 */
 import java.util.*;
@@ -26,15 +26,15 @@ public class Hamper {
      * @throws InsufficientFoodException If the foodlist does not contain enough items to generate
      * food that meets the needs of the clients an exception is thrown.
      */
-    public Hamper(ClientList nutrientNeeds, FoodList foods) throws InsufficientFoodException {
+    public Hamper(ClientList nutrientNeeds, FoodMap foods) throws InsufficientFoodException {
         this.nutrientNeeds = nutrientNeeds;
-        this.nutrientNeeds.setNutrientNeeds();
+        //this.nutrientNeeds.setNutrientNeeds();
         this.foodDatabase = foods.getFoodList();
         this.totalCalories = nutrientNeeds.getTotalCalories()*7;
-        this.totalFV = nutrientNeeds.getTotalFVCalories()*7;
-        this.totalOther = nutrientNeeds.getTotalOtherCalories()*7;
-        this.totalProtein = nutrientNeeds.getTotalProteinCalories()*7;
-        this.totalGrain = nutrientNeeds.getTotalGrainCalories()*7;
+        this.totalFV = nutrientNeeds.getTotalFruitVeg()*7;
+        this.totalOther = nutrientNeeds.getTotalOthers()*7;
+        this.totalProtein = nutrientNeeds.getTotalProtein()*7;
+        this.totalGrain = nutrientNeeds.getTotalGrains()*7;
         createHamper();
     }
     /**
@@ -191,6 +191,7 @@ public class Hamper {
             }
         }
     }
+
     private void completeProtein(){
         for(int i = 100; i > 0; i--){
             for(Map.Entry<Integer,Food> entry : foodDatabase.entrySet()){
@@ -206,6 +207,7 @@ public class Hamper {
             }
         }
     }
+
     private void completeFV(){
         for(int i = 100; i > 0; i--){
             for(Map.Entry<Integer,Food> entry : foodDatabase.entrySet()){
@@ -221,6 +223,7 @@ public class Hamper {
             }
         }
     }
+
     private void completeGrain(){
         for(int i = 100; i > 0; i--){
             for(Map.Entry<Integer,Food> entry : foodDatabase.entrySet()){
@@ -236,6 +239,7 @@ public class Hamper {
             }
         }
     }
+
     private void completeOther(){
         for(int i = 100; i > 0; i--){
             for(Map.Entry<Integer,Food> entry : foodDatabase.entrySet()){
@@ -251,6 +255,7 @@ public class Hamper {
             }
         }
     }
+
     private void minimize(){
         Set<Integer> extraItems = new HashSet<Integer>(), addSet = new HashSet<Integer>();
         List<Integer> list = new ArrayList<Integer>(hamperSet);
@@ -275,6 +280,7 @@ public class Hamper {
         extraItems.removeAll(addSet);
         hamperSet.removeAll(extraItems);
     }
+
     private void add(Map.Entry<Integer,Food> entry){
         protein += entry.getValue().getPROTEIN_CONTENT();
         calories += entry.getValue().getCALORIES();
@@ -283,11 +289,12 @@ public class Hamper {
         grain += entry.getValue().getGRAIN_CONTENT();
         
     }
+
     private void subtract(Map.Entry<Integer,Food> entry){
         protein -= entry.getValue().getPROTEIN_CONTENT();
         calories -= entry.getValue().getCALORIES();
         other -= entry.getValue().getOTHER_CONTENT();
         fv -= entry.getValue().getFV_CONTENT();
         grain -= entry.getValue().getGRAIN_CONTENT();
-    }
+    }  
 }
