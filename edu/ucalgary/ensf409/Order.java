@@ -2,7 +2,7 @@ package edu.ucalgary.ensf409;
 
 /**
 @author Pedro Ghodsi
-@version 2.0
+@version 2.1
 @since 1.0
 */
 import java.time.format.DateTimeFormatter;
@@ -32,13 +32,23 @@ public class Order {
         if (GUI.over8Box.getText().isEmpty() || (!(GUI.over8Box.getText().matches("[0-9]+")))) {
             GUI.errorBox("Error, enter valid # for children over 8", "error");
         }
+
         String postCode = GUI.postCodeBox.getText().replaceAll("[^a-zA-Z0-9]", "");
-        postCode = postCode.toUpperCase();
-        if (!(postCode.matches("^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$"))){
-            GUI.postCodeError("Invalid Postal Code", "Error");
-            decrement();
-            return;
+        if(GUI.mobReqBox.isSelected()) {
+            postCode = postCode.toUpperCase();
+            if (!(postCode.matches("^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$"))){
+                GUI.postCodeError("Invalid Postal Code", "Error");
+                decrement();
+                return;
+            }
         }
+        // String postCode = GUI.postCodeBox.getText().replaceAll("[^a-zA-Z0-9]", "");
+        // postCode = postCode.toUpperCase();
+        // if (!(postCode.matches("^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$"))){
+        //     GUI.postCodeError("Invalid Postal Code", "Error");
+        //     decrement();
+        //     return;
+        // }
         //clientlist inserted with arguments from gui
         ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText().trim()),
                 Integer.parseInt(GUI.adultFemaleBox.getText().trim()), Integer.parseInt(GUI.under8Box.getText().trim()),
@@ -99,11 +109,13 @@ public class Order {
             GUI.errorBox("Error, enter valid # for children over 8", "error");
         }
         String postCode = GUI.postCodeBox.getText().replaceAll("[^a-zA-Z0-9]", "");
-        postCode = postCode.toUpperCase();
-        if (!(postCode.matches("^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$"))){
-            GUI.postCodeError("Invalid Postal Code", "Error");
-            decrement();
-            return;
+        if(GUI.mobReqBox.isSelected()) {
+            postCode = postCode.toUpperCase();
+            if (!(postCode.matches("^[A-Z][0-9][A-Z][0-9][A-Z][0-9]$"))){
+                GUI.postCodeError("Invalid Postal Code", "Error");
+                decrement();
+                return;
+            }
         }
 
         ClientList cList = new ClientList(Integer.parseInt(GUI.adultMaleBox.getText().trim()),
